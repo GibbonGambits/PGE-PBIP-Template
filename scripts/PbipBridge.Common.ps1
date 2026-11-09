@@ -1,9 +1,9 @@
 # PbipBridge.Common.ps1
 # Shared helpers for the Power BI Desktop Bridge verification loop.
-# Dot-sourced by Test-PbipBridge.ps1, Invoke-PbipVerify.ps1 and hooks/pbip-stop-hook.ps1.
+# Dot-sourced by Test-PbipBridge.ps1, Invoke-PbipVerify.ps1 and scripts/hooks/pbip-stop-hook.ps1.
 # Targets Windows PowerShell 5.1 (no ternary / null-coalescing / -AsHashtable).
 
-# Deliberately no Set-StrictMode: these helpers run inside a Stop hook, where an
+# Deliberately no Set-StrictMode: these helpers run inside verification wrappers, where an
 # over-eager strict-mode error would turn into a skipped verification.
 
 # Desktop Bridge shipped in the June 2026 build. Older builds have no pipe and
@@ -483,8 +483,8 @@ function Start-PbiDesktopDetached {
       child, and a redirected child inherits every inheritable handle - including
       this process's own stdout. Desktop outlives the CLI and keeps that handle, so
       whatever is reading this process's output never sees end-of-stream until
-      Desktop exits. Inside the Stop hook, that reader is the harness: the hook
-      would appear to hang until its timeout. Measured: a reopen that finished its
+      Desktop exits. In wrapper-driven verification, that reader waits for stream
+      completion and would appear to hang until timeout. Measured: a reopen that finished its
       work in ~30s held its caller for 709s, released the instant Desktop closed.
 
       Start-Process without redirection goes through ShellExecute, which does not
@@ -728,7 +728,7 @@ function Get-PbipDefinitionHash {
     <#
       Content fingerprint of everything that affects rendering.
       Deliberately NOT tool-call based: this repo writes PBIP files from Python
-      build scripts via Bash, so a PostToolUse matcher on Edit|Write would miss
+      build scripts via Bash, so tool-event matching on Edit|Write would miss
       most changes. Hashing the tree catches every writer.
       Returns @{ Hash; TmdlChanged (bool: any semantic-model file present) }.
     #>

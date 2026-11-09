@@ -7,7 +7,8 @@ applyTo: '**/*.{ts,tsx,js,jsx,less,css}'
 
 ## Repository Precedence and Scope
 
-For this repository, `copilot-instructions.md` is the final authority for PBIP dashboard work.
+For GitHub Copilot workflows in this repository, `.github/copilot-instructions.md` is the primary policy authority for PBIP dashboard work.
+Use `copilot-instructions.md` as detailed PBIP reference material.
 
 Use this file only when the task is explicitly about building a custom visual extension (pbiviz, React visual, D3 custom visual package).
 
@@ -15,7 +16,7 @@ When editing PBIP artifacts (`*.pbip`, `*.pbir`, `*.tmdl`, report/page/visual JS
 
 Do not initialize or scaffold a custom visual project unless the user explicitly asks for custom visual extension development.
 
-For scaffolding, embedding a `.pbiviz` into a PBIP report (`CustomVisuals/`, `report.json` registration, `visual.json` bindings) and replacing licensed third-party visuals, follow `.claude/skills/powerbi-pbiviz-custom-visuals/SKILL.md` and its starter kit; this file remains the reference for techniques inside a visual.
+For scaffolding, embedding a `.pbiviz` into a PBIP report (`CustomVisuals/`, `report.json` registration, `visual.json` bindings) and replacing licensed third-party visuals, follow `.github/skills/powerbi-pbiviz-custom-visuals/SKILL.md` and its starter kit; this file remains the reference for techniques inside a visual.
 
 ## Overview
 This document provides comprehensive instructions for developing custom Power BI visuals using modern web technologies including React, D3.js, TypeScript, and advanced testing frameworks, based on Microsoft's official guidance and community best practices.

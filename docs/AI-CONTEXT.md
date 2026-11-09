@@ -19,7 +19,7 @@ Markdown is the substrate for agent instructions, and that is not an aesthetic c
 
 | Format | Where it appears here | Written by | Human-editable |
 | --- | --- | --- | --- |
-| **Markdown** | `.github/copilot-instructions.md`, `copilot-instructions.md`, `AGENTS.md`, `.github/skills/*/SKILL.md`, `.claude/skills/*/SKILL.md`, `specs/` | humans and agents | designed for it |
+| **Markdown** | `.github/copilot-instructions.md`, `copilot-instructions.md`, `AGENTS.md`, `.github/skills/*/SKILL.md`, `specs/` | humans and agents | designed for it |
 | **JSON** | `Template.Report/definition/**` (PBIR), `report.json`, themes | build scripts | technically yes, painfully — deep nesting, every string quoted, every brace tracked |
 | **TMDL** | `Template.SemanticModel/definition/**` | build scripts, Tabular Editor | yes — unquoted strings, indentation instead of braces |
 | **YAML** | `.github/workflows/*.yml` | humans | yes, but whitespace-fragile |
@@ -36,7 +36,7 @@ Borrowed from [Kiro's](https://kiro.dev/docs/) vocabulary, because the three-way
 | --- | --- | --- | --- | --- |
 | **Steering** | *How* do we build, always | Permanent, versioned, maintained | Every session, automatically | Highest |
 | **Specs** | *What* are we building, this once | Per deliverable, disposable | Read on demand for one task | Local to its task |
-| **Hooks** | *When* does something run | Permanent, code not prose | Fired on harness events | Deterministic — no judgement |
+| **Hooks** | *When* does something run | Permanent, code not prose | Run manually in this template | Deterministic — no judgement |
 
 The distinction earns its keep because the three fail in different ways. Steering that grows unbounded stops being read. A spec that gets maintained turns into a second rulebook that contradicts the first. A hook that encodes judgement blocks work it should not have blocked.
 
@@ -44,15 +44,13 @@ The distinction earns its keep because the three fail in different ways. Steerin
 
 | File | Loaded by | Contains |
 | --- | --- | --- |
-| `copilot-instructions.md` (root) | **nothing automatically** — it is the rulebook every other steering file points to | The full PBIP authoring rules: schema constraints, visual JSON templates, formatting rules, SVG measure architecture. ~700 lines. |
-| `AGENTS.md` | Agents that follow the AGENTS.md convention | The guardrails, the precedence rule, the layer map. A digest. |
-| `CLAUDE.md` | Claude Code, every session | `@AGENTS.md` plus the skill inventory, hook table, and fix budget. |
+| `copilot-instructions.md` (root) | **nothing automatically** — it is detailed PBIP reference material | The full PBIP authoring reference: schema constraints, visual JSON templates, formatting rules, SVG measure architecture. ~700 lines; keep aligned with `.github/copilot-instructions.md` for Copilot workflows. |
+| `AGENTS.md` | Tools that follow the AGENTS.md convention | The guardrails, the precedence rule, the layer map. A digest. |
 | `.github/copilot-instructions.md` | GitHub Copilot, every session | Primary Copilot steering file; links to deeper PBIP reference material as needed. |
 | `.github/instructions/*.instructions.md` | Copilot, scoped by `applyTo` glob | Topic rules that only load for matching file types (DevOps, RLS, custom visuals). |
 | `.github/skills/*/SKILL.md` | GitHub Copilot, routed by `description` | Copilot-first procedures — focused checklists, modeling reviews, performance triage, render verification. |
-| `.claude/skills/*/SKILL.md` | Claude Code, routed by `description` | Claude procedures — how to verify a render, build a field-parameter page, review a model. |
 
-The digests exist because of a mechanical fact: **a harness only auto-loads the filename it looks for.** Claude Code reads `CLAUDE.md`; Copilot reads `.github/copilot-instructions.md`; the cross-vendor convention is `AGENTS.md`. A 700-line rulebook at a path none of them check is a rulebook that loads only when a human remembers to ask for it. The digests are small on purpose; detail belongs in the rulebook, and duplicated detail rots.
+The digests exist because of a mechanical fact: **Copilot auto-loads only what it is configured to read.** `.github/copilot-instructions.md` is auto-loaded; `copilot-instructions.md` is deeper reference. `AGENTS.md` mirrors the same guardrails for compatibility with tooling that reads AGENTS files. The digests are small on purpose; detail belongs in the rulebook, and duplicated detail rots.
 
 ### Specs — what we are building this once
 
@@ -64,14 +62,14 @@ Specs are disposable and are **not** authority. When a rule in a spec turns out 
 
 ### Hooks — what runs whether or not anyone remembers
 
-Prose asks. Hooks enforce. Configured in `.claude/settings.json`, implemented in `scripts/hooks/`:
+Prose asks. Hooks enforce. This repository ships validation wrapper scripts in `scripts/hooks/` that you run manually:
 
-| Event | Script | Enforces |
+| Workflow Step | Script | Enforces |
 | --- | --- | --- |
-| `SessionStart` | `pbip-session-brief.ps1` | The guardrails and live bridge status are in context before the first prompt |
-| `PreToolUse` | `pbip-write-guard.ps1` | No writes to `Proposals/`, `**/.pbi/`, `tests/screenshots/`, `.claude/.pbip-state/` |
-| `PostToolUse` | `pbip-validate-hook.ps1` | Every PBIP JSON written parses and carries well-formed filter expressions; TMDL has no BOM, no `//` comments, and no measure/column name collision |
-| `Stop` | `pbip-stop-hook.ps1` | The turn does not end until the rendered screenshots have been reviewed |
+| Session brief | `pbip-session-brief.ps1` | Guardrails and live bridge status are in context before editing |
+| Write guard | `pbip-write-guard.ps1` | No writes to `Proposals/`, `**/.pbi/`, `tests/screenshots/`, `.github/.pbip-state/` |
+| Post-write validation | `pbip-validate-hook.ps1` | Every PBIP JSON written parses and carries well-formed filter expressions; TMDL has no BOM, no `//` comments, and no measure/column name collision |
+| Verification loop | `pbip-stop-hook.ps1` | The loop does not end until rendered screenshots have been reviewed |
 
 Two design rules every hook here follows:
 
@@ -86,16 +84,16 @@ The second answer is `scripts/Get-PbipLoadError.ps1`, for the errors static anal
 
 The same script splits its own checks by how transient they are. File-local ones (a collision inside one table) hold no matter what else is half-written, so they run on every edit. Cross-file ones (model-wide duplicate measures, relationship endpoints, unresolved references) would fire constantly during a multi-file build, so they run once in the verify loop, where the model is meant to be complete.
 
-Honest limits: the write guard sees `Write`/`Edit`/`NotebookEdit` only, so shell redirection through Bash or PowerShell goes around it — it is a guardrail, not a sandbox. And hook JSON contracts vary between Claude Code versions; if a hook stops firing after an upgrade, check `/hooks` first.
+Honest limits: the write guard sees `Write`/`Edit`/`NotebookEdit` only, so shell redirection through Bash or PowerShell goes around it — it is a guardrail, not a sandbox.
 
 ---
 
 ## Which layer does a new rule belong to?
 
-- Will it apply to **every** dashboard from now on? → steering, in `copilot-instructions.md`.
+- Will it apply to **every** dashboard from now on? → steering: for Copilot workflows, in `.github/copilot-instructions.md` (then keep `copilot-instructions.md` aligned as detailed reference).
 - Is it true only for **this** dashboard? → the spec.
 - Can a script decide it without judgement? → a hook. If a machine can check it, do not spend context asking an agent to remember it.
-- Is it a **procedure** rather than a rule — a sequence someone follows to get something done? → for Copilot, a skill under `.github/skills/`; for Claude Code, under `.claude/skills/`. In both cases, the `description` is the routing signal.
+- Is it a **procedure** rather than a rule — a sequence someone follows to get something done? → a skill under `.github/skills/`. The `description` is the routing signal.
 
 ## Documentation that travels with the project
 

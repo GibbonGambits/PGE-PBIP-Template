@@ -66,11 +66,11 @@ Use this checklist to evolve this template into a complete agentic BI delivery p
 
 ## Agentic BI Enablement
 
-- [ ] Steering digests present and current (`AGENTS.md`, `CLAUDE.md`, `.github/copilot-instructions.md`) — each harness auto-loads a different filename
+- [ ] Steering digests present and current (`AGENTS.md`, `.github/copilot-instructions.md`)
 - [ ] Copilot skills live in `.github/skills/` with folder name matching frontmatter `name`, and a `description` that says *when* to use them
 - [ ] A spec exists under `specs/` for every dashboard built from this template
 - [ ] Durable Copilot rules folded back into `.github/copilot-instructions.md` after each build
-- [ ] Hooks verified after a Claude Code upgrade (`/hooks`) — contracts change between versions
+- [ ] Hook-wrapper scripts validated manually (`scripts/hooks/*.ps1`)
 - [ ] Measures carry `///` descriptions in TMDL; model-level AI instructions reviewed for Copilot and data agents
 - [ ] Modeling skill prompts aligned to team standards
 - [ ] Measure naming and formatting guardrails enforced

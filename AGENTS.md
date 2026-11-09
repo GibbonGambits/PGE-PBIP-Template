@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Universal entry point for any coding agent working in this repository. Keep it short — the full rulebook is `copilot-instructions.md`.
+Universal entry point for GitHub Copilot workflows in this repository. Keep it short — Copilot policy lives in `.github/copilot-instructions.md`, while `copilot-instructions.md` is detailed PBIP reference material.
 
 ## What this repo is
 
@@ -8,19 +8,20 @@ A Power BI PBIP starter template for agentic dashboard development. Reports and 
 
 ## Rule precedence
 
-`copilot-instructions.md` is the final authority for PBIP authoring. Where it conflicts with anything in `.claude/skills/`, `.github/agents/`, `.github/instructions/`, or this file, **it wins**. Read it before touching `Template.Report/` or `Template.SemanticModel/`.
+For GitHub Copilot, `.github/copilot-instructions.md` is the primary policy authority.  
+`copilot-instructions.md` is the detailed PBIP reference for implementation mechanics.  
 
 ## Non-negotiable guardrails
 
-1. Business measures go in `_Measures` only.
+1. New business measures go in `_Measures`; keep existing legacy measure homes unless migration is explicitly approved.
 2. SVG KPI measures go in `_SVG_Measures` only, named by page (`P1_...`, `P2_...`).
 3. SVG backgrounds and custom themes live in `Template.Report/StaticResources/RegisteredResources/` and must be registered in `report.json`.
-4. Follow the PBIP schema and property constraints in `copilot-instructions.md` exactly — including the forbidden properties.
+4. Follow `.github/copilot-instructions.md` for Copilot policy, and use `copilot-instructions.md` for detailed PBIP schema/property constraints (including forbidden properties).
 5. Write `.tmdl` as UTF-8 **without BOM**, and never use inline `//` comments in TMDL.
-6. Follow the formatting conventions: whole numbers, thousand separators, data labels on, descending sort except time series, Jan→Dec month order.
+6. Use context-appropriate formatting (whole numbers where appropriate; justified decimals/currency/percentages allowed), while keeping repeated metrics consistent and applying thousand separators where relevant.
 7. SVG KPI cards use the image visual pattern (`sourceType='imageData'`, measure in `sourceField`).
 8. Generate fake CSV data with Python (numpy + pandas), no venv.
-9. Never call a page done on JSON validity alone — verify the rendered screenshot against `.claude/skills/powerbi-visual-verify/SKILL.md`.
+9. Never call a page done on JSON validity alone — verify the rendered screenshot against `.github/skills/powerbi-visual-verify/SKILL.md`.
 10. Give every measure a `description`. The model is context for the next agent and for Copilot/data agents; an undocumented measure is a measure someone will duplicate.
 
 ## How work is organised
@@ -29,11 +30,11 @@ Three layers, deliberately separate. `docs/AI-CONTEXT.md` explains why.
 
 | Layer | Answers | Where |
 | --- | --- | --- |
-| **Steering** | How we always build | `copilot-instructions.md` (rulebook), this file, `CLAUDE.md`, `.github/copilot-instructions.md`, `.github/instructions/*.instructions.md` |
+| **Steering** | How we always build | `.github/copilot-instructions.md` (Copilot primary policy), `copilot-instructions.md` (detailed reference), this file, `.github/instructions/*.instructions.md` |
 | **Specs** | What we are building, this once | `specs/` — one file per dashboard or page |
-| **Hooks** | What runs automatically, and when | `.claude/settings.json` → `scripts/hooks/` |
+| **Hooks** | What runs, and when | `scripts/hooks/` wrappers + `scripts/Invoke-PbipVerify.ps1` (manual execution) |
 
-**Write a spec before building a new dashboard or page.** Copy `specs/TEMPLATE.md`, fill it in, build against it. When the page renders clean, fold any rule that will apply to the *next* dashboard back into `copilot-instructions.md` and let the spec go stale — specs are disposable, steering is not.
+**Write a spec before building a new dashboard or page.** Copy `specs/TEMPLATE.md`, fill it in, build against it. When the page renders clean, fold any rule that will apply to the *next* dashboard back into `.github/copilot-instructions.md` (Copilot policy) and keep `copilot-instructions.md` aligned as detailed reference material — specs are disposable, steering is not.
 
 ## Verification is part of building
 
@@ -43,9 +44,9 @@ Every report or model edit ends in the Desktop Bridge loop:
 edit PBIR/TMDL → validate → reload Desktop → screenshot every page → review PNGs → fix
 ```
 
-A `Stop` hook runs it automatically and blocks the turn until the screenshots have been reviewed. Preflight with `powershell -NoProfile -File scripts\Test-PbipBridge.ps1`. If the bridge is unavailable the loop fails open — say the report was not visually verified rather than claiming it renders correctly.
+Run the verification loop manually and block completion until the screenshots have been reviewed. Preflight with `powershell -NoProfile -File scripts\Test-PbipBridge.ps1`. If the bridge is unavailable the loop fails open — say the report was not visually verified rather than claiming it renders correctly.
 
-On a **first build**, Power BI Desktop often refuses to load the PBIP at all and leaves the window on *Untitled*. That is a load error, not a broken bridge, and *continue with errors* is not a fix. The bridge cannot read that dialog — run `scripts\Test-PbipSemantics.ps1` to find the cause in the source. A reload can raise a second dialog, *"Your report has issues that could not be resolved"* - a PBIR schema fault, usually a malformed filter. Screenshots taken after pressing *Continue* on it are **untrusted**: the failing objects are silently dropped. See *Known caveats* in `.claude/skills/powerbi-visual-verify/SKILL.md`.
+On a **first build**, Power BI Desktop often refuses to load the PBIP at all and leaves the window on *Untitled*. That is a load error, not a broken bridge, and *continue with errors* is not a fix. The bridge cannot read that dialog — run `scripts\Test-PbipSemantics.ps1` to find the cause in the source. A reload can raise a second dialog, *"Your report has issues that could not be resolved"* - a PBIR schema fault, usually a malformed filter. Screenshots taken after pressing *Continue* on it are **untrusted**: the failing objects are silently dropped. See *Known caveats* in `.github/skills/powerbi-visual-verify/SKILL.md`.
 
 ## Before you finish
 

@@ -19,29 +19,30 @@ It combines:
 
 ## Rule Precedence (Final Boss)
 
-For this repository, `copilot-instructions.md` is the final authority for PBIP authoring.
+For GitHub Copilot workflows in this repository, `.github/copilot-instructions.md` is the primary policy authority.
+`copilot-instructions.md` remains the detailed PBIP reference.
 
-If there is any conflict between:
-- skill files in `.claude/skills/`
+If there is any conflict in a Copilot workflow between:
+- skill files in `.github/skills/`
 - agent modes in `.github/agents/`
 - additional instruction files in `.github/instructions/`
-- the steering digests (`AGENTS.md`, `CLAUDE.md`, `.github/copilot-instructions.md`)
+- the steering digests (`AGENTS.md`, `.github/copilot-instructions.md`)
 
-follow `copilot-instructions.md`.
+follow `.github/copilot-instructions.md`.
 
-The three digests exist because no harness auto-loads a file called `copilot-instructions.md` from the repository root: Claude Code reads `CLAUDE.md`, GitHub Copilot reads `.github/copilot-instructions.md`, and `AGENTS.md` is the cross-vendor convention. Each carries the guardrails and points here for the detail. How the whole context system fits together is in [`docs/AI-CONTEXT.md`](docs/AI-CONTEXT.md).
+The steering digests exist because GitHub Copilot auto-loads `.github/copilot-instructions.md`, while `copilot-instructions.md` remains deeper reference material. `AGENTS.md` mirrors the same guardrails for compatibility with tooling that reads AGENTS files. How the context system fits together is in [`docs/AI-CONTEXT.md`](docs/AI-CONTEXT.md).
 
 ## Repository Structure
 
-- `AGENTS.md`, `CLAUDE.md`, `.github/copilot-instructions.md`: steering digests that auto-load per harness
+- `AGENTS.md`, `.github/copilot-instructions.md`: steering digests for Copilot workflows
 - `specs/`: one spec per dashboard or page, written before the build ([`specs/README.md`](specs/README.md))
 - `.github/`: issue/PR templates, AI workflow, ownership
-- `.claude/`: Claude Code settings, including the visual verification `Stop` hook
-- `.claude/skills/`: reusable Power BI skills, auto-discovered by Claude Code
+- `.github/skills/`: reusable Power BI skills for GitHub Copilot routing
   - `powerbi-modeling/`, `power-bi-model-design-review/`, `power-bi-performance-troubleshooting/`
   - `powerbi-fieldparameter/`: field-parameter page builder (table + bar chart, bookmarks, toggles)
   - `powerbi-dashboard-header/`: standard header band and page chrome
   - `powerbi-visual-verify/`: rendered-screenshot review checklist
+  - `powerbi-theme-governance/`: theme source-to-deployable normalization and compliance
   - `powerbi-pbiviz-custom-visuals/`: scaffold, build, embed, and bind `.pbiviz` custom visuals (see [Custom Visuals](#custom-visuals-pbiviz))
 - `Template.pbip`: PBIP entry point
 - `Template.Report/`: report pages, visuals, theme references
@@ -65,13 +66,13 @@ These are the minimum rules every contributor must follow (full detail is in `co
 6. Follow repository formatting conventions for visuals (labels, axis behavior, sorting, month ordering, whole-number defaults).
 7. Use image visual pattern for SVG KPI cards (`sourceType='imageData'` with direct measure reference in `sourceField`).
 8. If generating fake CSV data, use Python with NumPy and pandas (no venv required).
-9. Never call a page done on JSON validity alone — verify the rendered screenshot against `.claude/skills/powerbi-visual-verify/SKILL.md`.
+9. Never call a page done on JSON validity alone — verify the rendered screenshot against `.github/skills/powerbi-visual-verify/SKILL.md`.
 10. Give every measure a `///` description in TMDL. The model is context for the next agent and for Copilot; an undocumented measure is one someone will duplicate.
 
 ## Quick Start
 
 1. Copy `.env.example` to `.env` if you want local environment placeholders.
-2. Read `copilot-instructions.md` before making model/report changes.
+2. Read `.github/copilot-instructions.md` before making model/report changes in Copilot workflows, then use `copilot-instructions.md` as detailed reference.
 3. Open `Template.pbip` in Power BI Desktop.
 4. Write a spec for what you are about to build — copy [`specs/TEMPLATE.md`](specs/TEMPLATE.md). Required for a new dashboard, page, or fact table.
 5. Build model objects in `Template.SemanticModel/definition/`.
@@ -85,20 +86,20 @@ Three layers, deliberately separate. Full rationale in [`docs/AI-CONTEXT.md`](do
 
 | Layer | Answers | Lives in | Loads |
 | --- | --- | --- | --- |
-| **Steering** | How we always build | `copilot-instructions.md` (rulebook) + `AGENTS.md` / `CLAUDE.md` / `.github/copilot-instructions.md` digests + `.claude/skills/` | Automatically, every session |
+| **Steering** | How we always build | `.github/copilot-instructions.md` (Copilot policy) + `copilot-instructions.md` (detailed reference) + `AGENTS.md` digest + `.github/skills/` procedures | Automatically, every session |
 | **Specs** | What we build this once | `specs/` — one file per dashboard or page | On demand, for one task |
-| **Hooks** | What runs regardless | `.claude/settings.json` → `scripts/hooks/` | On harness events |
+| **Hooks** | What runs regardless | `scripts/hooks/` wrappers + `scripts/Invoke-PbipVerify.ps1` | Manual run |
 
-Hooks in this template (Claude Code; all fail open by design):
+Manual validation wrappers in this template (all fail open by design):
 
-| Event | Script | Enforces |
+| Workflow Step | Script | Purpose |
 | --- | --- | --- |
-| `SessionStart` | `pbip-session-brief.ps1` | Guardrails and live bridge status are in context before the first prompt |
-| `PreToolUse` | `pbip-write-guard.ps1` | No writes to `Proposals/`, `**/.pbi/`, `tests/screenshots/`, `.claude/.pbip-state/` |
-| `PostToolUse` | `pbip-validate-hook.ps1` | Every PBIP JSON written parses and carries well-formed filter expressions; TMDL carries no BOM, no `//` comments, and no measure/column name collision |
-| `Stop` | `pbip-stop-hook.ps1` | The turn cannot end until rendered screenshots have been reviewed |
+| Session brief | `pbip-session-brief.ps1` | Prints guardrails and live bridge status for the current repo |
+| Write guard | `pbip-write-guard.ps1` | Blocks writes to `Proposals/`, `**/.pbi/`, `tests/screenshots/`, `.github/.pbip-state/` |
+| Post-write validation | `pbip-validate-hook.ps1` | Parses PBIP JSON, checks filter expressions, and enforces TMDL BOM/comment/name-collision rules |
+| Verification loop | `pbip-stop-hook.ps1` | Runs the verification flow and enforces one-round fix budget behavior |
 
-The `PostToolUse` validator matters most on a first build: malformed JSON or a BOM'd TMDL is exactly what makes Power BI Desktop refuse to open the PBIP, and it catches that at the moment of writing rather than at the error dialog.
+The post-write validator matters most on a first build: malformed JSON or a BOM'd TMDL is exactly what makes Power BI Desktop refuse to open the PBIP, and it catches that at the moment of writing rather than at the error dialog.
 
 ## Visual Verification (Power BI Desktop Bridge)
 
@@ -108,7 +109,7 @@ Valid PBIR still renders wrong — a chart overlapping its SVG card title, trunc
 edit PBIR/TMDL → validate → reload → screenshot every page → review → fix → repeat
 ```
 
-A `Stop` hook runs this automatically when the agent tries to end its turn, and blocks until the rendered pages have been reviewed against `.claude/skills/powerbi-visual-verify/SKILL.md`. Screenshots go to `tests/screenshots/` (gitignored).
+Use the `Stop`-loop script manually and block completion until rendered pages have been reviewed against `.github/skills/powerbi-visual-verify/SKILL.md`. Screenshots go to `tests/screenshots/` (gitignored).
 
 **Requires Power BI Desktop 2.155.756.0 (June 2026) or later** — below that build the Desktop Bridge does not exist. Enable *File > Options and settings > Options > Preview features > Enable external tool access to Power BI Desktop through secure local APIs*, then:
 
@@ -124,7 +125,7 @@ npm install -g @microsoft/powerbi-report-authoring-cli@latest    # powerbi-repor
 | `scripts/Get-PbipLoadError.ps1` | Reads Desktop's load and reload error dialogs — text, the "Copy details to clipboard" content collapsed to root causes, and a cropped PNG — and can answer them (Dismiss, Continue, Close Desktop) |
 | `scripts/Invoke-PbipVerify.ps1` | The loop: validate → semantics → wait for load (30s) → reload → screenshot-all → page manifest |
 | `scripts/Invoke-PbipRefresh.ps1` | Triggers a data refresh via UI automation — the bridge has no refresh method, and a freshly generated PBIP renders empty until refreshed once |
-| `scripts/hooks/pbip-stop-hook.ps1` | `Stop` hook wrapper with change detection and fix budget |
+| `scripts/hooks/pbip-stop-hook.ps1` | Verification wrapper with change detection and fix budget |
 | `scripts/PbipBridge.Common.ps1` | Shared helpers |
 
 Design notes worth knowing before you rely on it:
@@ -132,20 +133,20 @@ Design notes worth knowing before you rely on it:
 - **Fix budget is one round** — at most two blocks per turn (review + fix, then confirm + report).
 - **Change detection is by content hash**, not by tool call, so edits written by Python build scripts are caught too. Nothing changed means Power BI is never touched.
 - **The loop fails open.** No Desktop, no bridge, no CLI — the turn ends with a skip notice rather than trapping the session.
-- **Load errors are caught in source, not scraped off the screen.** The bridge cannot read Desktop's "Issues were found" dialog — during a failed load there is no report to serve the API. `scripts/Test-PbipSemantics.ps1` finds that class of error before Desktop ever sees the file: measure/column name collisions, duplicate measure names, relationship endpoints that do not exist, unresolved `'Table'[Column]` references, resource items referenced but never registered, duplicate page ids. It runs in the verify loop before Desktop is touched, and file-local checks run on every edit via the `PostToolUse` hook.
+- **Load errors are caught in source, not scraped off the screen.** The bridge cannot read Desktop's "Issues were found" dialog — during a failed load there is no report to serve the API. `scripts/Test-PbipSemantics.ps1` finds that class of error before Desktop ever sees the file: measure/column name collisions, duplicate measure names, relationship endpoints that do not exist, unresolved `'Table'[Column]` references, resource items referenced but never registered, duplicate page ids. It runs in the verify loop before Desktop is touched, and file-local checks run on every edit via the post-write validator.
 - **The loop waits 30 seconds for a load, then says which failure it was** — `not_running`, `no_bridge`, `other_project` (it names what *is* open), or `load_failed`. Only the last blocks the turn: a rejected definition is a defect, not an outage.
 - **On `load_failed` it reads Desktop's error dialog** — text, the "Copy details to clipboard" diagnostic (which carries the offending file and line), and a cropped PNG. That is usually enough to fix the source directly.
 - **A reload can raise a different dialog** — *"Your report has issues that could not be resolved"*, from a PBIR schema fault such as a malformed filter expression. `powerbi-desktop reload` still reports success, so the loop watches for the modal. It collapses the issue list (one bad expression key produces ~49 lines) to its root cause, presses *Continue*, takes screenshots marked **UNTRUSTED** — Continue silently drops whatever failed, so a broken filter stops filtering and the page still looks normal — closes the instance so the degraded report can't be saved over the source, and blocks with status `loaded_with_issues`.
 - **Filter expressions are checked locally.** `powerbi-report-author validate` only catches malformed filter expressions with its remote schema, and reports success under `--no-schema`. `Test-PbipSemantics.ps1` checks them without the network, and suggests the intended key (`Inn` → `In`).
 - **It recovers from a load failure on its own** — capture the dialog, dismiss it, close the spent instance, reopen, retry. The order is deliberate: `powerbi-desktop open` starts a *new* instance rather than reusing the running one, so the failed window has to be gone before the reopen. Two guarantees keep that safe — the reopen is **net-zero on failure** (the running-instance count returns to what it was, and anything it starts it also closes), and it only ever closes an instance it started itself or one that was showing a load-error dialog, never an arbitrary *Untitled* window that might hold unsaved work. `-NoReopen` turns the recovery off.
-- **A first-run report may not open at all.** Power BI Desktop can reject a freshly generated PBIP with an error dialog and leave the window on *Untitled* — the modal blocks the bridge, and *continue with errors* opens the report with the failing parts dropped, so the screenshots lie. Dismiss it, fix the reported PBIR/TMDL error, reopen, and confirm `powerbi-desktop status` shows the project path. Details in `.claude/skills/powerbi-visual-verify/SKILL.md`.
+- **A first-run report may not open at all.** Power BI Desktop can reject a freshly generated PBIP with an error dialog and leave the window on *Untitled* — the modal blocks the bridge, and *continue with errors* opens the report with the failing parts dropped, so the screenshots lie. Dismiss it, fix the reported PBIR/TMDL error, reopen, and confirm `powerbi-desktop status` shows the project path. Details in `.github/skills/powerbi-visual-verify/SKILL.md`.
 - **Theme JSON is cached by Desktop.** After editing a theme, rename it with a new suffix and update its `report.json` registration, or reopen Desktop; a plain reload shows stale colors.
 
 Run it manually with `powershell -NoProfile -File scripts\Invoke-PbipVerify.ps1 -Mode Review`. Full detail is in `copilot-instructions.md`.
 
 ## Custom Visuals (`.pbiviz`)
 
-`.claude/skills/powerbi-pbiviz-custom-visuals/` builds custom visuals as source-controlled `pbiviz` projects and embeds their bundles directly into `<Project>.Report/CustomVisuals/`, so the report opens complete on any machine — nothing to import, no third-party marketplace licence to expire on you.
+Route custom-visual procedures through `.github/skills/powerbi-pbiviz-custom-visuals/` to build source-controlled `pbiviz` projects embedded directly into `<Project>.Report/CustomVisuals/`, so the report opens complete on any machine — nothing to import, no third-party marketplace licence to expire on you.
 
 Use it when a native visual (or an SVG measure in an image visual) cannot express the design — IBCS statement tables, variance strips, running P&L results — or when a report depends on an expired or unapproved marketplace visual that needs replacing.
 

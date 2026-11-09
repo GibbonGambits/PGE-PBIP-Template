@@ -47,7 +47,7 @@
 
 ## 4. Rules that apply
 
-> Default is: everything in `copilot-instructions.md`. Use this section only for the decisions this page makes *within* the rules, and for anything that needs an explicit exception.
+> Default for Copilot workflows is `.github/copilot-instructions.md` (with `copilot-instructions.md` as detailed reference). Use this section only for the decisions this page makes *within* the rules, and for anything that needs an explicit exception.
 
 - Formatting: whole numbers, thousand separators, data labels on, no axis titles, value axis hidden, category axis visible
 - Sort: descending by value, except time series (Jan→Dec by month number, displayed MMM)
@@ -71,7 +71,7 @@
 - [ ] All three validation scripts pass (JSON, PBIP structure, semantics)
 - [ ] PBIP **opens in Desktop with no error dialog** — window title shows the project, not *Untitled*
 - [ ] `powerbi-desktop status` reports the project path
-- [ ] Verification loop run; every page screenshot reviewed against `.claude/skills/powerbi-visual-verify/SKILL.md`
+- [ ] Verification loop run; every page screenshot reviewed against `.github/skills/powerbi-visual-verify/SKILL.md`
 - [ ] No visual overlaps its SVG card title; no truncated labels; no blank charts
 - [ ] Findings reported by page display name
 
@@ -83,6 +83,6 @@
 
 ## 8. Fold-back
 
-> After the page renders clean: which rules here were not one-offs? Move them into `copilot-instructions.md` and note what moved.
+> After the page renders clean: which rules here were not one-offs? Move Copilot policy rules into `.github/copilot-instructions.md` (and keep `copilot-instructions.md` aligned as detailed reference) and note what moved.
 
 -

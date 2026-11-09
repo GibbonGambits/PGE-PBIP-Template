@@ -69,7 +69,7 @@ The report must be **PBIR** (`<Project>.Report/definition/pages/...`). A `.pbix`
 ### 2. Scaffold
 
 ```powershell
-python .claude\skills\powerbi-pbiviz-custom-visuals\assets\tools\new_visual.py `
+python .github\skills\powerbi-pbiviz-custom-visuals\assets\tools\new_visual.py `
   --name finVarianceTable --template varianceTable `
   --display "Variance Table" --description "IBCS statement table" `
   --author-name "<from question 3>" --author-email "<from question 3>"
@@ -145,7 +145,7 @@ powerbi-desktop open "<Project>.pbip"     # close any running instance of the pr
 powerbi-desktop status                    # currentFilePath = the project
 ```
 
-Screenshot every page and review with the `powerbi-visual-verify` skill (the Stop hook runs the loop).
+Screenshot every page and review with the `powerbi-visual-verify` skill (run `scripts\Invoke-PbipVerify.ps1 -Mode Review` manually).
 
 Checks specific to custom visuals:
 

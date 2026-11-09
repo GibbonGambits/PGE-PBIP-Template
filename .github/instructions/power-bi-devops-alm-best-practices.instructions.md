@@ -7,7 +7,8 @@ applyTo: '**/*.{yml,yaml,ps1,json,pbix,pbir}'
 
 ## Repository Precedence
 
-For this repository, `copilot-instructions.md` is the final authority when any guidance conflicts.
+For GitHub Copilot workflows in this repository, `.github/copilot-instructions.md` is the primary policy authority when any guidance conflicts.
+Use `copilot-instructions.md` as detailed PBIP reference material.
 
 Apply this document as DevOps and ALM guidance only after validating compatibility with `copilot-instructions.md`.
 

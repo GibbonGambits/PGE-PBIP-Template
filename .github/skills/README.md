@@ -9,5 +9,8 @@ Current skills:
 - `power-bi-performance-troubleshooting`
 - `powerbi-visual-verify`
 - `powerbi-theme-governance`
+- `powerbi-fieldparameter`
+- `powerbi-dashboard-header`
+- `powerbi-pbiviz-custom-visuals`
 
 These skills consume focused standards from [docs/checklists/](../../docs/checklists/README.md).

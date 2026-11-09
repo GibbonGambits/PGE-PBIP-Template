@@ -1,13 +1,14 @@
 ---
 description: 'Comprehensive Power BI Row-Level Security (RLS) and advanced security patterns implementation guide with dynamic security, best practices, and governance strategies.'
-applyTo: '**/*.{pbix,dax,md,txt,json,csharp,powershell}'
+applyTo: '**/*.{pbix,dax,md,txt,json,cs,ps1,psm1,psd1}'
 ---
 
 # Power BI Security and Row-Level Security Best Practices
 
 ## Repository Precedence
 
-For this repository, `copilot-instructions.md` is the final authority for PBIP modeling/report authoring behavior.
+For GitHub Copilot workflows in this repository, `.github/copilot-instructions.md` is the primary policy authority for PBIP modeling/report authoring behavior.
+Use `copilot-instructions.md` as detailed PBIP reference material.
 
 Use this document for security and RLS strategy, but when there is any conflict in implementation detail (schema, naming, formatting, artifact layout), follow `copilot-instructions.md`.
 

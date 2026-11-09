@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Claude Code SessionStart hook - puts the repository's guardrails and the live
+    Session brief wrapper - puts the repository's guardrails and the live
     Desktop Bridge status into context before the first prompt.
 
 .DESCRIPTION
@@ -38,9 +38,9 @@ try {
     $brief = @"
 PBIP Agentic BI Starter Pack - session brief
 
-RULEBOOK: copilot-instructions.md is the final authority for PBIP authoring. Read it
-before touching any *.Report or *.SemanticModel file. AGENTS.md and CLAUDE.md are
-digests of it, not replacements.
+RULEBOOK: .github/copilot-instructions.md is the primary Copilot policy authority.
+Use copilot-instructions.md as detailed PBIP reference before touching any *.Report
+or *.SemanticModel file. AGENTS.md is a digest, not a replacement.
 
 GUARDRAILS
  1. Business measures in _Measures only.
@@ -55,8 +55,8 @@ GUARDRAILS
 10. Every measure carries a description.
 
 WORKFLOW: write a spec in specs/ before building a new dashboard or page. Build, then
-verify. A Stop hook runs the screenshot loop and blocks until the PNGs are reviewed
-against .claude/skills/powerbi-visual-verify/SKILL.md. Fix budget is one round.
+verify. Run scripts\Invoke-PbipVerify.ps1 and review PNGs against
+.github/skills/powerbi-visual-verify/SKILL.md. Fix budget is one round.
 
 FIRST BUILD: if Desktop shows an error dialog and the window stays on 'Untitled', the
 PBIP did not load. That is a source error, not a bridge problem, and 'continue with

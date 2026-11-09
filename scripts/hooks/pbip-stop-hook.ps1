@@ -1,18 +1,17 @@
 <#
 .SYNOPSIS
-    Claude Code Stop hook - runs the PBIP visual verification loop before a turn ends.
+    Verification wrapper - runs the PBIP visual verification loop before completion.
 
 .DESCRIPTION
-    Fires when Claude tries to finish. If the report/model definition changed since
+    Fires before a turn finishes. If the report/model definition changed since
     the last verified state, it validates, reloads Power BI Desktop, screenshots every
-    page, and BLOCKS the turn so Claude must read and review the PNGs.
+    page, and BLOCKS the turn so the agent must read and review the PNGs.
 
     Fix budget is one round: at most two blocks per session-turn sequence
     (round 1 = review + fix, round 2 = confirmation + report).
 
     FAIL OPEN is the cardinal rule. Any failure - missing CLI, dead bridge, closed
-    Desktop, unexpected exception - must exit 0. A Stop hook that blocks on a broken
-    bridge makes the session impossible to end.
+    Desktop, unexpected exception - must exit 0. A broken wrapper must not block work.
 #>
 
 $ErrorActionPreference = "Stop"
@@ -29,7 +28,7 @@ try {
     if ($hookInput -and $hookInput.PSObject.Properties.Name -contains 'session_id' -and $hookInput.session_id) {
         $sessionId = $hookInput.session_id
     }
-    # Belt and braces against a runaway loop if the harness signals re-entry.
+    # Belt and braces against a runaway loop if the caller signals re-entry.
     $stopHookActive = $false
     if ($hookInput -and $hookInput.PSObject.Properties.Name -contains 'stop_hook_active') {
         $stopHookActive = [bool]$hookInput.stop_hook_active
@@ -41,7 +40,7 @@ try {
     $project = Get-PbipProject
     $fingerprint = Get-PbipDefinitionHash -Project $project
 
-    $stateDir = Join-Path $project.RepoRoot ".claude\.pbip-state"
+    $stateDir = Join-Path $project.RepoRoot ".github\.pbip-state"
     if (-not (Test-Path -LiteralPath $stateDir)) {
         New-Item -ItemType Directory -Path $stateDir -Force | Out-Null
     }
@@ -63,7 +62,7 @@ try {
     }
 
     # --- Gate 1: nothing changed -> never touch Power BI -------------------------
-    # This also makes the "reviewed, nothing to fix" path free: Claude edits nothing,
+    # This also makes the "reviewed, nothing to fix" path free: no edits,
     # the hash is unchanged, the turn simply ends.
     if ($fingerprint.Hash -eq $state.lastHash) {
         exit 0

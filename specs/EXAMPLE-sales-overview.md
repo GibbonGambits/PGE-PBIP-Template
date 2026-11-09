@@ -96,5 +96,5 @@ Visual `y` sits at `card_y + 30` or lower in every case, so nothing lands on its
 
 ## 8. Fold-back
 
-- The `card_y + 30` minimum for visual `y` was a recurring fix across three pages, not a one-off. Moved into `copilot-instructions.md` as rule 16 and into the visual-verify checklist as the top layout check.
-- "Where the SVG label promises a Top N, the visual must actually be filtered to that N" generalises. Moved into the rulebook as rule 14.
+- The `card_y + 30` minimum for visual `y` was a recurring fix across three pages, not a one-off. Moved into `.github/copilot-instructions.md` for Copilot policy (with `copilot-instructions.md` kept aligned as detailed reference) and into the visual-verify checklist as the top layout check.
+- "Where the SVG label promises a Top N, the visual must actually be filtered to that N" generalises. Moved into `.github/copilot-instructions.md` for Copilot policy.

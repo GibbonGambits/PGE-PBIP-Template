@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Claude Code PostToolUse hook - validates a single PBIP file the moment it is written.
+    Post-write validation wrapper - validates a single PBIP file the moment it is written.
 
 .DESCRIPTION
     Catches the class of defect that makes Power BI Desktop refuse to open a
@@ -123,6 +123,6 @@ try {
     exit 0
 
 } catch {
-    # Fail open, exactly as the Stop hook does.
+    # Fail open, exactly as the verification wrapper does.
     exit 0
 }

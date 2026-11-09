@@ -12,7 +12,7 @@
     Two tiers, deliberately:
 
       FILE-LOCAL   Always true regardless of what else is mid-write. Safe to run on
-                   every edit from the PostToolUse hook.
+                   every edit from the post-write validator.
                      - a measure and a column sharing a name in the same table
                        (exactly the error in the reported dialog)
                      - duplicate column names in a table

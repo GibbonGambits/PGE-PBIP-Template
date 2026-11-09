@@ -232,7 +232,7 @@ function Invoke-PbipVerify {
     # and gives a far better error than the bridge does.
     # -SkipValidation exists to reproduce Desktop-side failures on purpose: it lets a
     # definition these gates would reject reach Desktop, so the dialog handling in
-    # step 4b can be exercised. Never pass it from the Stop hook.
+    # step 4b can be exercised. Avoid this flag during normal verification.
     if ($SkipValidation) {
         $warnings.Add("Validation was skipped (-SkipValidation). This run exists to reproduce a Desktop-side failure; do not treat its outcome as verification.")
     }
@@ -577,7 +577,7 @@ function Format-PbipVerifyReport {
     param(
         [Parameter(Mandatory = $true)]$Result,
         [ValidateSet("Review", "Confirm")][string]$Mode = "Review",
-        [string]$ChecklistPath = ".claude/skills/powerbi-visual-verify/SKILL.md"
+        [string]$ChecklistPath = ".github/skills/powerbi-visual-verify/SKILL.md"
     )
 
     $sb = New-Object System.Text.StringBuilder

@@ -76,4 +76,4 @@ powershell -NoProfile -File scripts\validate-json.ps1
 powershell -NoProfile -File scripts\validate-pbip.ps1
 ```
 
-Rendered-output verification runs through the Power BI Desktop Bridge (`scripts\Test-PbipBridge.ps1`, `scripts\Invoke-PbipVerify.ps1`). It is automated for Claude Code via a `Stop` hook; in Copilot, run it yourself and review the PNGs in `tests/screenshots/` against `.github/skills/powerbi-visual-verify/SKILL.md` before calling a page done.
+Rendered-output verification runs through the Power BI Desktop Bridge (`scripts\Test-PbipBridge.ps1`, `scripts\Invoke-PbipVerify.ps1`). Run it manually and review the PNGs in `tests/screenshots/` against `.github/skills/powerbi-visual-verify/SKILL.md` before calling a page done.

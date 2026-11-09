@@ -1,6 +1,8 @@
 You are making PowerBI dashboard using pbip file system. You are expert in PowerBI and have good understanding of pbip file system and its components, DAX, PowerBI visualizations, and are also an expert UI/UX design for PowerBI dashboards.
 
 If asked to make CSV of fake data, use python file with numpy and pandas to generate the data with all necessary columns and data types.
+
+Authority note (GitHub Copilot): `.github/copilot-instructions.md` is the primary Copilot policy authority. This file is the detailed PBIP reference for implementation mechanics.
 ---
 
 
@@ -57,7 +59,7 @@ ProjectName.SemanticModel/
 
 # Dashboard Creation Steps
 
-0. **Write a spec** – For a new dashboard, page, or fact table, copy `specs/TEMPLATE.md` to `specs/<name>.md` and fill it in before building. Decisions about measures, page grid, and field bindings are cheap to change in a spec and expensive to change in generated PBIR JSON. Once the page renders clean, fold any rule that will apply to the *next* dashboard back into this file. See `specs/README.md`.
+0. **Write a spec** – For a new dashboard, page, or fact table, copy `specs/TEMPLATE.md` to `specs/<name>.md` and fill it in before building. Decisions about measures, page grid, and field bindings are cheap to change in a spec and expensive to change in generated PBIR JSON. Once the page renders clean, fold any Copilot-policy rule that will apply to the *next* dashboard into `.github/copilot-instructions.md`, and keep this file aligned as detailed reference. See `specs/README.md`.
 1. **Understand data** – Read `.SemanticModel` folder for tables, columns, relationships, measures.
 2. **Create measures** – Give every measure a `///` description line; the model is context for the next agent and for Copilot. Default: place business measures in `_Measures` (create `_Measures = BLANK{}` if needed). Legacy-safe mode: if an existing working report already references measures in source tables (for example `Fact-MaterialMaster` / `Dim-Sales`), keep those measure home tables unless you migrate all visual references in the same change set.
 3. **Create theme** – Save `<ThemeName>.json` in `RegisteredResources/`, reference in `report.json`.
@@ -92,9 +94,9 @@ Confirm everything at once with `powershell -NoProfile -File scripts\Test-PbipBr
 
 ## How it runs
 
-Four hooks in `.claude/settings.json` back these rules with automation rather than prose. `SessionStart` (`pbip-session-brief.ps1`) injects the guardrails and the live bridge status; `PreToolUse` (`pbip-write-guard.ps1`) blocks writes to `Proposals/`, `**/.pbi/`, `tests/screenshots/` and `.claude/.pbip-state/`; `PostToolUse` (`pbip-validate-hook.ps1`) parses every PBIP JSON written, rejects TMDL with a BOM or `//` comments, and catches file-local semantic errors such as a measure colliding with a column name. All fail open.
+This repository provides hook-wrapper scripts under `scripts/hooks/` and a verification loop in `scripts/Invoke-PbipVerify.ps1`. Run them manually as needed. `pbip-session-brief.ps1` prepares a short guardrail brief; `pbip-write-guard.ps1` blocks writes to `Proposals/`, `**/.pbi/`, `tests/screenshots/`, and `.github/.pbip-state/`; `pbip-validate-hook.ps1` parses every PBIP JSON written, rejects TMDL with a BOM or `//` comments, and catches file-local semantic errors such as a measure colliding with a column name. All fail open.
 
-A `Stop` hook in `.claude/settings.json` fires when the agent tries to end its turn. If the report or model definition changed, it runs `scripts/Invoke-PbipVerify.ps1` and blocks the turn until the rendered pages have been reviewed against `.claude/skills/powerbi-visual-verify/SKILL.md`.
+When the report or model definition changed, run `scripts/Invoke-PbipVerify.ps1` and review rendered pages against `.github/skills/powerbi-visual-verify/SKILL.md` before calling a page done.
 
 - **Fix budget: one round.** At most two blocks — review + fix, then confirm + report.
 - **Change detection is by content hash**, not by tool call, because this repo writes PBIP files from Python build scripts. Nothing changed means Power BI is never touched.
@@ -246,7 +248,9 @@ Omitting `reportVersionAtImport` causes: `Required properties are missing from o
 
 # Theme JSON — Valid Root Keys ONLY
 
-Power BI theme JSON files only accept these top-level properties. Any other key causes import failure:
+Deployable Power BI theme JSON files (used for report registration) only accept these top-level properties. Any other key causes import failure.
+
+Source files such as `docs/theme/Theme.json` may include legacy fields (for example `good`/`bad`) and must be promoted to a deployable copy (for example `docs/theme/Theme.deployable.json`) before registration.
 
 ```json
 {
@@ -269,7 +273,7 @@ Power BI theme JSON files only accept these top-level properties. Any other key 
 }
 ```
 
-**FORBIDDEN top-level keys** (cause theme import error):
+**FORBIDDEN top-level keys in deployable theme outputs** (cause theme import error):
 - `visualContainerHeader`
 - `axisLine`
 - `gridlines`
@@ -329,7 +333,7 @@ Both `categoryAxis` and `valueAxis`:
   }
 }]
 ```
-- `labelPrecision: 0L` = no decimal points
+- `labelPrecision: 0L` = default no decimal points (override when the page spec requires precision)
 - `labelDisplayUnits: 1D` = full number with comma separator (not K/M)
 - `enableValueDataLabel: true` = show actual value
 
@@ -696,7 +700,7 @@ def meas_field(entity, prop):
 3. `model.tmdl` → write to `definition/` (ref all tables including _SVG_Measures)
 4. Visual JSON files → write to each page's `visuals/<name>/visual.json`
 5. `page.json` → write per page with background image ref
-6. Theme JSON → write to `RegisteredResources/` (ONLY valid root keys!)
+6. Theme JSON (deployable copy only) → write to `RegisteredResources/` (ONLY valid root keys!)
 7. `report.json` → write with `themeCollection` + `resourcePackages`
 8. `pages.json` → write with `pageOrder` array
 9. BOM check → verify all `.tmdl` files are UTF-8 no-BOM
@@ -705,16 +709,16 @@ def meas_field(entity, prop):
 
 # General Dashboard Formatting Rules
 
-1. **No decimal points** — use whole numbers everywhere
+1. **Use context-appropriate numeric formats** — whole numbers where appropriate; use justified decimals/currency/percentages when required
 2. **Thousand separators** — all measures and visuals use comma formatting
 3. **Consistent naming** — no "Sum of", no underscores in tooltips/column names
-4. **Data labels ON** for all charts (0 decimal, comma-separated, full numbers not K/M)
+4. **Data labels ON** for all charts (default 0 decimal, comma-separated, full numbers not K/M unless explicitly required by spec)
 5. **Sort by descending** value by default
 6. **Month visuals** — sort by Month Number ascending (Jan→Dec), display as MMM format. Create a custom column for month number and sort month name by that column.
 7. **No background** on any visual container (`visualContainerObjects.background.show = false`)
 8. **No border** on any visual container (`visualContainerObjects.border.show = false`)
 9. **No drop shadow** on any visual container (`visualContainerObjects.dropShadow.show = false`)
-10. **No title** on any visual container (`visualContainerObjects.title.show = false`) — titles come from the SVG background canvas
+10. **No title** on any visual container (`visualContainerObjects.title.show = false`) — titles come from the SVG background canvas by default; visual-title mode is allowed only when explicitly approved and documented in the active spec
 11. **No axis titles** on any chart (`showAxisTitle = false` on both category and value axis)
 12. **Value axis hidden** (`show: false`) — CRM style, only data labels visible
 13. **Category axis visible** (`show: true`) — shows category labels on the axis
