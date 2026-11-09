@@ -2,6 +2,16 @@
 
 Use this checklist to evolve this template into a complete agentic BI delivery platform.
 
+## Detailed checklist packs (use with this summary)
+
+- [Modeling checklist index](./checklists/README.md)
+- [Power Query and Data Sources](./checklists/power-query-and-data-sources.md)
+- [Semantic Model and Relationships](./checklists/semantic-model-and-relationships.md)
+- [DAX and Measures](./checklists/dax-and-measures.md)
+- [Report Design and Interactions](./checklists/report-design-and-interactions.md)
+- [Accessibility and Performance](./checklists/accessibility-and-performance.md)
+- [Security, Governance, Testing, and Documentation](./checklists/security-governance-testing-documentation.md)
+
 ## Repository and Governance
 
 - [ ] Branch strategy in place: `feature/*` -> `dev` -> `test` -> `main`
@@ -50,12 +60,16 @@ Use this checklist to evolve this template into a complete agentic BI delivery p
 - [ ] Monitoring dashboard for refresh and query failures configured
 - [ ] Incident response checklist available for BI outages
 
+## Optional Add-ons
+
+- [ ] Decommission plan documented for legacy reports/datasets replaced by this asset
+
 ## Agentic BI Enablement
 
 - [ ] Steering digests present and current (`AGENTS.md`, `CLAUDE.md`, `.github/copilot-instructions.md`) — each harness auto-loads a different filename
-- [ ] Skills live in `.claude/skills/` with folder name matching frontmatter `name`, and a `description` that says *when* to use them
+- [ ] Copilot skills live in `.github/skills/` with folder name matching frontmatter `name`, and a `description` that says *when* to use them
 - [ ] A spec exists under `specs/` for every dashboard built from this template
-- [ ] Durable rules folded back from specs into `copilot-instructions.md` after each build
+- [ ] Durable Copilot rules folded back into `.github/copilot-instructions.md` after each build
 - [ ] Hooks verified after a Claude Code upgrade (`/hooks`) — contracts change between versions
 - [ ] Measures carry `///` descriptions in TMDL; model-level AI instructions reviewed for Copilot and data agents
 - [ ] Modeling skill prompts aligned to team standards

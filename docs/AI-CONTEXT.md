@@ -19,7 +19,7 @@ Markdown is the substrate for agent instructions, and that is not an aesthetic c
 
 | Format | Where it appears here | Written by | Human-editable |
 | --- | --- | --- | --- |
-| **Markdown** | `copilot-instructions.md`, `AGENTS.md`, `.claude/skills/*/SKILL.md`, `specs/` | humans and agents | designed for it |
+| **Markdown** | `.github/copilot-instructions.md`, `copilot-instructions.md`, `AGENTS.md`, `.github/skills/*/SKILL.md`, `.claude/skills/*/SKILL.md`, `specs/` | humans and agents | designed for it |
 | **JSON** | `Template.Report/definition/**` (PBIR), `report.json`, themes | build scripts | technically yes, painfully — deep nesting, every string quoted, every brace tracked |
 | **TMDL** | `Template.SemanticModel/definition/**` | build scripts, Tabular Editor | yes — unquoted strings, indentation instead of braces |
 | **YAML** | `.github/workflows/*.yml` | humans | yes, but whitespace-fragile |
@@ -47,9 +47,10 @@ The distinction earns its keep because the three fail in different ways. Steerin
 | `copilot-instructions.md` (root) | **nothing automatically** — it is the rulebook every other steering file points to | The full PBIP authoring rules: schema constraints, visual JSON templates, formatting rules, SVG measure architecture. ~700 lines. |
 | `AGENTS.md` | Agents that follow the AGENTS.md convention | The guardrails, the precedence rule, the layer map. A digest. |
 | `CLAUDE.md` | Claude Code, every session | `@AGENTS.md` plus the skill inventory, hook table, and fix budget. |
-| `.github/copilot-instructions.md` | GitHub Copilot, every session | The same digest, pointing at the root rulebook. |
+| `.github/copilot-instructions.md` | GitHub Copilot, every session | Primary Copilot steering file; links to deeper PBIP reference material as needed. |
 | `.github/instructions/*.instructions.md` | Copilot, scoped by `applyTo` glob | Topic rules that only load for matching file types (DevOps, RLS, custom visuals). |
-| `.claude/skills/*/SKILL.md` | Claude Code, routed by `description` | Procedures — how to verify a render, build a field-parameter page, review a model. |
+| `.github/skills/*/SKILL.md` | GitHub Copilot, routed by `description` | Copilot-first procedures — focused checklists, modeling reviews, performance triage, render verification. |
+| `.claude/skills/*/SKILL.md` | Claude Code, routed by `description` | Claude procedures — how to verify a render, build a field-parameter page, review a model. |
 
 The digests exist because of a mechanical fact: **a harness only auto-loads the filename it looks for.** Claude Code reads `CLAUDE.md`; Copilot reads `.github/copilot-instructions.md`; the cross-vendor convention is `AGENTS.md`. A 700-line rulebook at a path none of them check is a rulebook that loads only when a human remembers to ask for it. The digests are small on purpose; detail belongs in the rulebook, and duplicated detail rots.
 
@@ -59,7 +60,7 @@ The digests exist because of a mechanical fact: **a harness only auto-loads the 
 
 The point is to move decisions in front of the work. Without a spec, a request goes from one sentence of chat straight to generated PBIR JSON, and the first review happens when Power BI Desktop either renders it or refuses to open it.
 
-Specs are disposable and are **not** authority. When a rule in a spec turns out to apply to the next dashboard too, it graduates into `copilot-instructions.md`. See `specs/README.md`.
+Specs are disposable and are **not** authority. When a rule in a spec turns out to apply to the next dashboard too, it graduates into `.github/copilot-instructions.md` (and any deeper reference files it delegates to). See `specs/README.md`.
 
 ### Hooks — what runs whether or not anyone remembers
 
@@ -94,7 +95,7 @@ Honest limits: the write guard sees `Write`/`Edit`/`NotebookEdit` only, so shell
 - Will it apply to **every** dashboard from now on? → steering, in `copilot-instructions.md`.
 - Is it true only for **this** dashboard? → the spec.
 - Can a script decide it without judgement? → a hook. If a machine can check it, do not spend context asking an agent to remember it.
-- Is it a **procedure** rather than a rule — a sequence someone follows to get something done? → a skill under `.claude/skills/`, with a `description` that says *when* to use it. That description is the only routing signal the agent gets.
+- Is it a **procedure** rather than a rule — a sequence someone follows to get something done? → for Copilot, a skill under `.github/skills/`; for Claude Code, under `.claude/skills/`. In both cases, the `description` is the routing signal.
 
 ## Documentation that travels with the project
 
