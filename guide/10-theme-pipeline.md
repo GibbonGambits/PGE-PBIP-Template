@@ -50,4 +50,4 @@ Walkthrough of Figure 10.3:
 | Reopen Desktop, or rename the theme, before judging colours | Trust colours after a plain reload |
 | Keep IBCS green and red meanings (Section 12) | Use brand colours for "good" and "bad" |
 
-A small detail for careful readers: `docs/theme/Theme.json` starts with an invisible byte-order mark (BOM). Power BI tolerates it in JSON, but Python's standard JSON reader rejects it unless you open the file with `encoding='utf-8-sig'`. Section 16 lists this.
+A small detail for careful readers: `docs/theme/Theme.json` starts with an invisible byte-order mark (BOM). Python's standard JSON reader rejects such a file unless you open the file with `encoding='utf-8-sig'`. Section 16 lists this.

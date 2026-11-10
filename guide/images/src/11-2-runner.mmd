@@ -1,0 +1,11 @@
+flowchart TB
+  A["1 Read the prompt file<br/>(stop if it is missing)"]:::r
+  B["2 Collect project files: .pbip .pbir .pbism .json .tmdl<br/>each cut to 25,000 characters"]:::r
+  C["3 Optional: download Microsoft's<br/>Best Practice Analyzer rules"]:::ext
+  Q{"4 API key<br/>found?"}:::n
+  S["Write a 'skipped' report to the same<br/>three files (what the repo holds today)"]:::a
+  D["Send prompt + files to the<br/>AI model's chat API"]:::ext
+  E["5 Write test_results.md, a timestamped<br/>copy in history/, and latest_run.json"]:::r
+  A --> B --> C --> Q
+  Q -- "no" --> S
+  Q -- "yes" --> D --> E

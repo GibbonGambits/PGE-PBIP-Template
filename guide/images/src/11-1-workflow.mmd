@@ -1,0 +1,12 @@
+flowchart TB
+  T1(["Trigger: a push to the test branch,<br/>or 'Run workflow' clicked by hand"]):::you
+  S1["1 Check out the code<br/>on a GitHub Ubuntu runner"]:::ext
+  S2["2 Validate first<br/>validate-json.ps1 + validate-pbip.ps1"]:::r
+  S3["3 run-ai-md-test.ps1<br/>prompt: tests/prompts/PowerBI_Test.md<br/>model: gpt-4.1 (or your choice when run by hand)"]:::r
+  S4["4 Upload tests/results/ as a<br/>downloadable artifact, kept 30 days"]:::ext
+  Q{"5 Commit results<br/>switched on?"}:::n
+  Y["Commit the results back<br/>to the test branch"]:::ext
+  N["Finish: results only<br/>in the artifact"]:::g
+  T1 --> S1 --> S2 --> S3 --> S4 --> Q
+  Q -- "yes" --> Y
+  Q -- "no" --> N
