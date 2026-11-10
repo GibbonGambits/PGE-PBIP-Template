@@ -1,0 +1,7 @@
+flowchart TB
+  E(["You or the agent saved some files"]):::you
+  V1["1 validate-json.ps1<br/>every .json .pbip .pbir .pbism file parses"]:::r
+  V2["2 validate-pbip.ps1<br/>the .pbip, report and model folders are wired<br/>together; registered resources exist on disk"]:::r
+  V3["3 Test-PbipSemantics.ps1<br/>the errors Desktop would show as a dialog:<br/>name clashes, broken references, bad filters"]:::r
+  OK["Ready to open or reload<br/>in Power BI Desktop"]:::g
+  E --> V1 --> V2 --> V3 --> OK

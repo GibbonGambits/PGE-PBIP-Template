@@ -1,0 +1,7 @@
+flowchart TB
+  F["4b Do not trust the reload's 'success':<br/>look for the 'report has issues' dialog"]:::r
+  G["5 Delete old PNGs, then screenshot every page<br/>into tests/screenshots/latest/"]:::ext
+  H["6 Match each PNG to its page display name"]:::r
+  I["7 Add caveat warnings<br/>(theme cache, TMDL changes, untrusted shots)"]:::r
+  J(["Report: status + PNG list + warnings"]):::you
+  F --> G --> H --> I --> J

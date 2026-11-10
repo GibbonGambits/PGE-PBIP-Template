@@ -1,0 +1,7 @@
+flowchart TB
+  A["1 Find the project<br/>the one .pbip in the repo root"]:::r
+  B["2 Validate the report files<br/>powerbi-report-author validate"]:::r
+  C["2b Semantic gate<br/>Test-PbipSemantics (Desktop NOT touched yet)"]:::r
+  D["3 Find the Desktop window holding THIS project<br/>waits up to 30 seconds; reopens if it failed to load"]:::ext
+  E["4 Reload Desktop through the bridge<br/>(one operation at a time)"]:::ext
+  A --> B --> C --> D --> E

@@ -1,0 +1,13 @@
+flowchart TB
+  T(["The agent is about to finish its turn"]):::ai
+  Q1{"Did the report or model<br/>files change? (content hash)"}:::n
+  Q2{"Fix budget spent?<br/>(already blocked twice)"}:::n
+  END1["Let the turn end<br/>Power BI is never touched"]:::g
+  END2["Let the turn end<br/>with the last report"]:::g
+  RUN["Run Invoke-PbipVerify<br/>Review mode first time, Confirm mode second"]:::r
+  BLK["Block the turn: the agent must<br/>read and review the screenshots"]:::r
+  T --> Q1
+  Q1 -- "no" --> END1
+  Q1 -- "yes" --> Q2
+  Q2 -- "yes" --> END2
+  Q2 -- "no" --> RUN --> BLK

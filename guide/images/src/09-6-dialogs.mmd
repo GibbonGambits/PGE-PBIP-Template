@@ -1,0 +1,12 @@
+flowchart TB
+  S(["Power BI Desktop shows<br/>an error window"]):::you
+  Q{"What is the<br/>window's title?"}:::n
+  A1["'Issues were found'<br/>(on open: the model or report<br/>could not load at all)"]:::r
+  A2["'Your report has issues that<br/>could not be resolved'<br/>(usually a malformed filter)"]:::r
+  B1["Run Test-PbipSemantics.ps1;<br/>Get-PbipLoadError.ps1 reads the<br/>dialog's details if needed"]:::r
+  B2["Do NOT trust screenshots taken after<br/>pressing Continue: broken parts were<br/>silently dropped"]:::bad
+  C1["Fix the named file and line,<br/>then reopen the project"]:::g
+  C2["Fix the filter expression in source,<br/>then reopen the project"]:::g
+  S --> Q
+  Q -- "Issues were found" --> A1 --> B1 --> C1
+  Q -- "Your report has issues" --> A2 --> B2 --> C2
