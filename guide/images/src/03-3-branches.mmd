@@ -1,0 +1,17 @@
+gitGraph
+  commit id: "template"
+  branch dev
+  checkout dev
+  commit id: "dev setup"
+  branch feature/sales-page
+  checkout feature/sales-page
+  commit id: "spec"
+  commit id: "measures"
+  commit id: "visuals"
+  checkout dev
+  merge feature/sales-page id: "PR 1 merged"
+  branch test
+  checkout test
+  commit id: "AI test runs"
+  checkout main
+  merge test id: "release"

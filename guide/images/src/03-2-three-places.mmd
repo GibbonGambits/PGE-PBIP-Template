@@ -1,0 +1,9 @@
+flowchart LR
+  WD["1 Working folder<br/>files you can see and edit"]:::a
+  ST["2 Staging area<br/>changes picked for the next snapshot"]:::n
+  RP["3 Local repository (.git)<br/>all snapshots (commits)"]:::g
+  RM["4 Remote (GitHub)<br/>shared copy"]:::ext
+  WD -- "git add" --> ST
+  ST -- "git commit" --> RP
+  RP -- "git push" --> RM
+  RM -- "git pull" --> WD

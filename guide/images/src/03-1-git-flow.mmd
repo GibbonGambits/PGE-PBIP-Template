@@ -1,0 +1,18 @@
+flowchart TB
+  UP["1 Original repo on GitHub<br/>GibbonGambits/PGE-PBIP-Template<br/>(called 'upstream')"]:::ext
+  FORK["2 Your fork on GitHub<br/>your-name/PGE-PBIP-Template<br/>(called 'origin')"]:::ext
+  LOCAL["3 Your clone on your PC<br/>a full copy with history"]:::you
+  BR["4 New branch<br/>e.g. feature/sales-page"]:::g
+  ED["5 Edit files<br/>(you or the AI agent)"]:::a
+  CM["6 Commit<br/>a saved snapshot + message"]:::g
+  PS["7 Push<br/>upload commits to your fork"]:::g
+  PR["8 Pull request<br/>'please review and merge my branch'"]:::ext
+  MG["9 Review, then merge<br/>into dev / test / main"]:::ext
+  UP -- "Fork button" --> FORK
+  FORK -- "git clone" --> LOCAL
+  LOCAL -- "git checkout -b" --> BR
+  BR --> ED --> CM
+  CM -- "repeat 5-6 as often as you like" --> ED
+  CM -- "git push" --> PS
+  PS --> PR --> MG
+  UP -. "git fetch upstream + merge<br/>to get template updates" .-> LOCAL
