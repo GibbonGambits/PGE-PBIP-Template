@@ -1,0 +1,8 @@
+flowchart TB
+  A["1 Copy visuals/shared/ into the<br/>visual's src/shared/"]:::r
+  B["2 Bump the build number<br/>(Desktop caches by GUID + version)"]:::r
+  C["3 pbiviz package --resources"]:::ext
+  D["4 Byte-copy the payload into<br/>CustomVisuals/&lt;guid&gt;/"]:::a
+  E["5 Register the GUID in report.json"]:::a
+  F["6 Check every GUID-shaped visualType<br/>is registered"]:::r
+  A --> B --> C --> D --> E --> F

@@ -1,0 +1,7 @@
+flowchart TB
+  W0["0 Spec<br/>roles, fields, interactivity, exceptions"]:::g
+  W1["1 Preflight<br/>node 18+, pbiviz, Test-PbipBridge;<br/>Desktop must NOT have the project open"]:::r
+  W2["2 Scaffold<br/>python tools/new_visual.py --template ..."]:::ra
+  W3["3 Capabilities<br/>edit visuals/&lt;name&gt;/capabilities.json"]:::a
+  W4["4 Implement<br/>src/visual.ts and style/visual.less"]:::a
+  W0 --> W1 --> W2 --> W3 --> W4

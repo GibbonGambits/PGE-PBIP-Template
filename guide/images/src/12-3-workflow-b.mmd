@@ -1,0 +1,7 @@
+flowchart TB
+  W5["5 Build + embed<br/>node tools/sync-visuals.mjs"]:::ra
+  W6["6 Bind in visual.json<br/>build script + pbir_helpers.py"]:::a
+  W7["7 Validate<br/>3 repo validators + sync-visuals --check<br/>+ powerbi-report-author validate"]:::r
+  W8["8 Open in Desktop + screenshot<br/>review with powerbi-visual-verify"]:::ext
+  W9["9 Fold back<br/>reusable rules to the rulebook or skill"]:::aa
+  W5 --> W6 --> W7 --> W8 --> W9

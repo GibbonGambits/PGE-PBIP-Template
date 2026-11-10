@@ -1,0 +1,12 @@
+flowchart TB
+  S(["You need a chart that looks a certain way"]):::you
+  Q1{"Can a built-in Power BI<br/>visual do it with formatting?"}:::n
+  Q2{"Can an SVG measure in an<br/>image visual do it?"}:::n
+  A1["Use the built-in visual<br/>(no code to maintain)"]:::g
+  A2["Use the SVG KPI pattern<br/>(Section 08)"]:::g
+  A3["Build a custom visual with the kit<br/>e.g. IBCS variance table, or replacing<br/>an expired paid visual"]:::aa
+  S --> Q1
+  Q1 -- "yes" --> A1
+  Q1 -- "no" --> Q2
+  Q2 -- "yes" --> A2
+  Q2 -- "no" --> A3

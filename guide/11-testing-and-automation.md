@@ -57,7 +57,7 @@ Walkthrough of Figure 11.3:
 
 ## What the AI test checks
 
-`tests/prompts/PowerBI_Test.md` is a "Measure Killer-style" audit prompt. Measure Killer is a third-party tool for finding unused parts of a Power BI model; the prompt imitates that kind of report without running any tool. In eight phases it:
+`tests/prompts/PowerBI_Test.md` is what the repository calls a "Measure Killer-style" audit prompt: it looks for unused and broken parts of the model by reading the files, and its hard requirements forbid running Python, Node or any custom script. In eight phases it:
 
 1. finds and checks the project files;
 2. lists every table, column, measure and relationship;
