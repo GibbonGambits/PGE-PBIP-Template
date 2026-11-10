@@ -1,0 +1,25 @@
+<html><head><style>body{margin:0;font-family:"DejaVu Sans",Arial,sans-serif;background:#fff;color:#0F172A}
+#c{display:inline-block;padding:18px}
+.cols{display:flex;gap:28px;align-items:stretch}
+.col{flex:1;border:2px solid #94A3B8;border-radius:12px;padding:14px;background:#F8FAFC}
+.col h4{margin:0 0 12px 0;font-size:19px;text-align:center}
+.step{border:2px solid;border-radius:8px;padding:9px 12px;margin:0 0 6px 0;font-size:15px;line-height:1.35}
+.arrow{text-align:center;color:#334155;font-size:18px;margin:0 0 6px 0}
+.g{background:#DCFCE7;border-color:#15803D;color:#14532D}
+.a{background:#FEF3C7;border-color:#B45309;color:#78350F}
+.r{background:#FEE2E2;border-color:#B91C1C;color:#7F1D1D}
+.n{background:#F1F5F9;border-color:#475569}
+.bad{background:#fff;border-color:#B91C1C;border-style:dashed;color:#7F1D1D}
+.ai{outline:4px dashed #1D4ED8;outline-offset:-2px}
+.mono{font-family:"DejaVu Sans Mono",monospace;font-size:14px}
+table{border-collapse:collapse;font-size:15px}
+td,th{border:1.5px solid #94A3B8;padding:8px 10px;vertical-align:top}
+th{background:#E2E8F0}
+</style></head><body><div id='c' style='width:1000px'><style>
+.tree{font-size:15px;line-height:1.25}
+.node{display:flex;align-items:center;margin:3px 0}
+.lab{border:2px solid;border-radius:6px;padding:3px 8px;font-family:"DejaVu Sans Mono",monospace;font-size:14px;white-space:nowrap}
+.desc{margin-left:10px;color:#334155;font-size:14px}
+.guide{color:#94A3B8;font-family:"DejaVu Sans Mono",monospace;white-space:pre;font-size:14px}
+.ai{outline:3px dashed #1D4ED8;outline-offset:1px}
+</style><div class=tree><div class=node><span class='lab r'>scripts/</span><span class=desc>PowerShell checks and bridge loop</span></div><div class=node><span class=guide>├── </span><span class='lab r'>hooks/</span><span class=desc>Hook wrapper scripts  <i>(4 items inside, shown in their own tree)</i></span></div><div class=node><span class=guide>├── </span><span class='lab r'>Get-PbipLoadError.ps1</span><span class=desc>Reads Desktop error pop-ups</span></div><div class=node><span class=guide>├── </span><span class='lab r'>Invoke-PbipRefresh.ps1</span><span class=desc>Clicks Refresh in Desktop</span></div><div class=node><span class=guide>├── </span><span class='lab r'>Invoke-PbipVerify.ps1</span><span class=desc>Validate, reload, screenshot loop</span></div><div class=node><span class=guide>├── </span><span class='lab r'>PbipBridge.Common.ps1</span><span class=desc>Shared helper functions</span></div><div class=node><span class=guide>├── </span><span class='lab r'>run-ai-md-test.ps1</span><span class=desc>Sends PBIP to AI model for audit</span></div><div class=node><span class=guide>├── </span><span class='lab r'>Test-PbipBridge.ps1</span><span class=desc>Preflight: is everything installed?</span></div><div class=node><span class=guide>├── </span><span class='lab r'>Test-PbipSemantics.ps1</span><span class=desc>Finds load errors in source</span></div><div class=node><span class=guide>├── </span><span class='lab r'>validate-json.ps1</span><span class=desc>Checks every JSON parses</span></div><div class=node><span class=guide>└── </span><span class='lab r'>validate-pbip.ps1</span><span class=desc>Checks PBIP folder wiring</span></div></div></div></body></html>

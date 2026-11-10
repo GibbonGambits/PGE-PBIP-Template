@@ -1,0 +1,34 @@
+"""Helpers that write HTML figure sources into guide/images/src."""
+import html, os
+SRC = "/home/user/PGE-PBIP-Template/guide/images/src"
+CSS = """body{margin:0;font-family:"DejaVu Sans",Arial,sans-serif;background:#fff;color:#0F172A}
+#c{display:inline-block;padding:18px}
+.cols{display:flex;gap:28px;align-items:stretch}
+.col{flex:1;border:2px solid #94A3B8;border-radius:12px;padding:14px;background:#F8FAFC}
+.col h4{margin:0 0 12px 0;font-size:19px;text-align:center}
+.step{border:2px solid;border-radius:8px;padding:9px 12px;margin:0 0 6px 0;font-size:15px;line-height:1.35}
+.arrow{text-align:center;color:#334155;font-size:18px;margin:0 0 6px 0}
+.g{background:#DCFCE7;border-color:#15803D;color:#14532D}
+.a{background:#FEF3C7;border-color:#B45309;color:#78350F}
+.r{background:#FEE2E2;border-color:#B91C1C;color:#7F1D1D}
+.n{background:#F1F5F9;border-color:#475569}
+.bad{background:#fff;border-color:#B91C1C;border-style:dashed;color:#7F1D1D}
+.ai{outline:4px dashed #1D4ED8;outline-offset:-2px}
+.mono{font-family:"DejaVu Sans Mono",monospace;font-size:14px}
+table{border-collapse:collapse;font-size:15px}
+td,th{border:1.5px solid #94A3B8;padding:8px 10px;vertical-align:top}
+th{background:#E2E8F0}
+"""
+def page(name, body, width=1100):
+    with open(os.path.join(SRC, name + ".html"), "w") as f:
+        f.write(f"<html><head><style>{CSS}</style></head><body><div id='c' style='width:{width}px'>{body}</div></body></html>")
+def compare(name, cols, width=1100):
+    """cols = [(title, [(cls, text), ...]), ...]  text may contain <br> and <b>"""
+    out = "<div class='cols'>"
+    for title, steps in cols:
+        out += f"<div class='col'><h4>{title}</h4>"
+        for i, (cls, t) in enumerate(steps):
+            if i: out += "<div class='arrow'>&#9660;</div>"
+            out += f"<div class='step {cls}'>{t}</div>"
+        out += "</div>"
+    page(name, out + "</div>", width)
