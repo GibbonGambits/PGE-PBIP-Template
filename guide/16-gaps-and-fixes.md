@@ -200,10 +200,10 @@ Walkthrough of Figure 16.2:
 
 - `.github/CODEOWNERS` uses example team handles (`@your-org/bi-platform-team` and others), as its first line says ("Update owners to your org/team handles").
 - `docs/REPOSITORY-GUIDE.md` uses `<upstream-owner>/<upstream-repo>` in the upstream command.
-- The email guide's file name is spelled `emal_style_instructions.md` (missing "i"), and the README links to that spelling.
+- The email guide's file name is spelled `emal_style_instructions.md` (missing "i"), and the README refers to that spelling.
 
 **Plain fix, step by step:**
 
 1. In your fork, replace each `@your-org/...` handle in `CODEOWNERS` with a real GitHub team or user who should review that folder.
 2. Replace `<upstream-owner>/<upstream-repo>` with `GibbonGambits/PGE-PBIP-Template` in your own notes when you run the command.
-3. Renaming the email guide is optional. If you rename it to `email_style_instructions.md`, update the two README links in the same change.
+3. Renaming the email guide is optional. If you rename it to `email_style_instructions.md`, update the README reference in the same change.
