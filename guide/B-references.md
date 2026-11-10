@@ -1,16 +1,8 @@
-# 18. Verified official references
+# Appendix B. Verified official references
 
 ![Reference groups](images/18-1-ref-groups.png)
 
-**Figure 18.1 — Where the references come from.** Official documentation only, grouped by technology.
-
-Walkthrough of Figure 18.1:
-
-1. Each link below was opened on 10 November 2026, and the fact this guide uses was checked against the page.
-2. Links that would not open were left out (for example, the npm package pages for the two Power BI CLIs refused automated access, so they are not listed).
-3. Each entry says what the page is for, in one line.
-
----
+**Figure B.1 — Where the references come from.** Every link below was opened on 10 November 2026 and the fact this guide uses was checked against the page. Links that wouldn't open (for example the npm pages for the two Power BI CLIs) are left out.
 
 ## Power BI and Microsoft (Microsoft Learn)
 
@@ -34,7 +26,7 @@ Walkthrough of Figure 18.1:
 | [Overview of Fabric Git integration](https://learn.microsoft.com/en-us/fabric/cicd/git-integration/intro-to-git-integration) | Syncing Fabric workspaces with Git |
 | [What is PowerShell?](https://learn.microsoft.com/en-us/powershell/scripting/overview) | The shell the repository's scripts use |
 
-The six files in `docs/checklists/` also contain a Microsoft Learn link for every checklist row.
+The six files in `docs/checklists/` also have a Microsoft Learn link for every checklist row.
 
 ## Git and GitHub
 
@@ -81,4 +73,4 @@ The six files in `docs/checklists/` also contain a Microsoft Learn link for ever
 | [Download Python](https://www.python.org/downloads/) | Installing Python 3 |
 | [microsoft/skills-for-fabric](https://github.com/microsoft/skills-for-fabric) | The Copilot CLI plugin collection named in the README |
 
-For Git itself, use the download link on the Git website's home page (`git-scm.com`). The direct downloads address only showed a redirect notice when checked, so it is not linked here.
+For Git itself, use the download link on the Git website's home page (`git-scm.com`); the direct downloads address only showed a redirect notice when checked.

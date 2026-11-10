@@ -1,8 +1,8 @@
-# 19. Appendix: the Stage 1 inventory table
+# Stage 1 inventory table
 
-This is the complete list of every file and folder in the repository, as found in Stage 1 of building this guide. It is the checklist used to make sure Section 14 misses nothing.
+This is the complete list of every file and folder in the repository, as found in Stage 1 of building this guide. It was the checklist used to make sure the guide covers every item. Appendix A of the guide presents the same items grouped by folder.
 
-- **Safety** is the fill colour from the legend in Section 00: Green = safe to edit, Amber = edit with care, Red = do not edit (you may still read or run it).
+- **Safety** is the fill colour from the legend in Start here: Green = safe to edit, Amber = edit with care, Red = do not edit (you may still read or run it).
 - **AI file** = Yes means an AI agent (GitHub Copilot or Claude) reads the file as instructions. In diagrams these items have a blue dashed outline.
 - Paths are relative to the repository root. Folders end with `/`.
 

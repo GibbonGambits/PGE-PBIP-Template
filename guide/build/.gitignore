@@ -1,4 +1,6 @@
 masterclass.html
-tools/node_modules/
+metrics*.json
+.pages/
+tools/node_modules
 tools/package*.json
 __pycache__/

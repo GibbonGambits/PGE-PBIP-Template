@@ -13,7 +13,7 @@ await page.evaluate(() => {
   mermaid.initialize({ startOnLoad: false, theme: 'base', securityLevel: 'loose',
     fontFamily: '"DejaVu Sans", Arial, sans-serif',
     themeVariables: { fontSize: '17px', primaryColor: '#F1F5F9', primaryBorderColor: '#475569', lineColor: '#334155', primaryTextColor: '#0F172A', clusterBkg: '#F8FAFC', clusterBorder: '#94A3B8', actorBkg:'#E2E8F0', actorBorder:'#475569', noteBkgColor:'#FEF9C3', noteBorderColor:'#CA8A04', edgeLabelBackground:'#FFFFFF' },
-    flowchart: { htmlLabels: true, curve: 'linear', nodeSpacing: 40, rankSpacing: 50, padding: 12, wrappingWidth: 320 },
+    flowchart: { htmlLabels: true, curve: 'linear', nodeSpacing: 26, rankSpacing: 30, padding: 9, wrappingWidth: 320, diagramPadding: 6 },
     sequence: { useMaxWidth: false, actorMargin: 40, messageFontSize: 15, noteFontSize: 14, actorFontSize: 15, wrap: true, width: 170 },
     gitGraph: { useMaxWidth: false }, mindmap: { useMaxWidth: false }, timeline: { useMaxWidth: false } });
 });
@@ -22,6 +22,8 @@ if (only.length) files = files.filter(f => only.some(o => f.startsWith(o)));
 let failed = 0;
 for (const f of files) {
   let code = fs.readFileSync(path.join(SRC, f), 'utf8');
+  // compact decision shapes: diamonds -> hexagons
+  code = code.replace(/(\b[A-Za-z0-9_]+)\{"([^"]*)"\}/g, (m, id, t) => `${id}{{"${t}"}}`);
   if (/^\s*(flowchart|graph)/.test(code)) code += `
 classDef g fill:#DCFCE7,stroke:#15803D,color:#14532D,stroke-width:2px
 classDef a fill:#FEF3C7,stroke:#B45309,color:#78350F,stroke-width:2px

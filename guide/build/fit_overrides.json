@@ -1,0 +1,12 @@
+{
+ "scale": {
+  "00-1-legend": 0.8,
+  "05-1-master-map": 0.8
+ },
+ "force": {
+  "03-2-three-places": 1.22,
+  "01-1-architecture": 0.911,
+  "14-19-tree": 0.768
+ },
+ "defer": {}
+}

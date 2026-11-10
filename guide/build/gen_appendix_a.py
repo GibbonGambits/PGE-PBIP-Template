@@ -1,5 +1,5 @@
-"""Generate guide/14-file-directory.md and its folder-tree figures from inventory.py + details.py."""
-import os, sys
+"""Generate guide/A-file-directory.md (Appendix A) and its folder-tree figure sources from inventory.py + details.py."""
+import os, re, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(HERE, "tools"))
@@ -46,14 +46,21 @@ def order(root, keep, collapse):
     walk(root)
     return out
 os.chdir(os.path.join(ROOT, "guide", "images"))
-md = ["# 14. File-by-file directory", "",
-"Every one of the repository's 176 files and folders, grouped by folder. Each group opens with a folder-tree diagram coloured with the safety legend from Section 00 (fill colour = safety; blue dashed outline = AI agent file). Under each tree, the numbered entries follow the tree from top to bottom and give:",
-"", "- the **exact path** and its **safety flag**;", "- **What it is:** a plain-English summary with a real-world comparison;", "- **Technical role:** what the file does for the tools.", "",
-"Folders that appear closed in one tree are opened in their own tree later. Each item is described once, the first time it appears.", ""]
-seen = []
-fig = 0
+
+def plain(text):
+    """First sentence(s) of the summary, without the 'Like ...' comparison."""
+    parts = re.split(r"(?<=[.!?])\s+", text.strip())
+    keep = [x for x in parts if not x.startswith("Like ")]
+    return " ".join(keep) if keep else parts[0]
+
+def cell(t):
+    return t.replace("|", "\\|").replace("*", "\\*").replace("<", "&lt;")
+
+md = ["# Appendix A. File-by-file directory", "",
+      "Every one of the repository's 176 files and folders, grouped by folder. Each group has a folder tree (coloured with the legend from Start here) and a table. Folders get one line. Paths in each table are relative to the folder named in its heading.", ""]
+seen, fig = [], 0
 for title, root, keep, collapse, intro in GROUPS:
-    if root is None:  # special: agents + instructions as one tree from .github
+    if root is None:
         root = ".github"; keep = lambda k: k.startswith(".github/agents") or k.startswith(".github/instructions"); collapse = set()
         entries = order(root, keep, collapse)
     else:
@@ -65,20 +72,25 @@ for title, root, keep, collapse, intro in GROUPS:
     entries = [e for e in entries if e not in seen]
     fig += 1
     name = f"14-{fig:02d}-tree"
-    treefig.render_subset(name, root, keep, collapse=collapse, width=1000)
-    md += [f"## 14.{fig} {title}", "", f"![Folder tree: {title}](images/{name}.png)", "",
-           f"**Figure 14.{fig} — {title}.** {intro}", "", f"Walkthrough of Figure 14.{fig}:", ""]
-    for i, p in enumerate(entries, 1):
-        s, ai = safety(p)
-        tag = f"**{NAMES[s]}**" + (" · **AI file**" if ai else "")
-        slash = "/" if isdir(p) else ""
-        what, role = D[p]
-        esc = lambda t: t.replace("*", "\\*").replace("<", "&lt;")
-        what, role = esc(what), esc(role)
-        md += [f"{i}. `{p}{slash}` — {tag}", f"   - *What it is:* {what}", f"   - *Technical role:* {role}"]
+    treefig.render_subset(name, root, keep, collapse=collapse, width=800)
+    where = f"`{root}/`" if root else "the repository root"
+    md += [f"## A.{fig} {title}", "", f"![Folder tree: {title}](images/{name}.png)", "",
+           f"**Figure A.{fig} — {title}.** {intro}" + (" Folders shown closed are opened in their own tree." if collapse and "own tree" not in intro else ""), "",
+           "| Item | Type | What it is | Safety |", "|---|---|---|---|"]
+    for p in entries:
+        s_, ai = safety(p)
+        t, short, _ = INV[p]
+        isd = isdir(p)
+        rel = os.path.relpath(p, root) if root else p
+        if rel == ".":
+            rel = os.path.basename(p)
+        rel += "/" if isd else ""
+        flag = NAMES[s_] + (" · AI" if ai else "")
+        what = short if isd else plain(D[p][0])
+        md.append(f"| `{cell(rel)}` | {t} | {cell(what)} | {flag} |")
         seen.append(p)
     md.append("")
 missing = sorted(set(INV) - set(seen)); dup = sorted({x for x in seen if seen.count(x) > 1})
-md += [f"**Coverage check:** {len(set(seen))} of {len(INV)} items listed above."]
-open(os.path.join(ROOT, "guide", "14-file-directory.md"), "w").write("\n".join(md) + "\n")
+md += [f"**Coverage:** {len(set(seen))} of {len(INV)} items listed."]
+open(os.path.join(ROOT, "guide", "A-file-directory.md"), "w").write("\n".join(md) + "\n")
 print("figures", fig, "entries", len(seen), "unique", len(set(seen)), "missing", missing, "dup", dup)
