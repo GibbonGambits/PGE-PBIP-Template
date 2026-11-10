@@ -1,0 +1,7 @@
+flowchart TB
+  F1["1 Create a branch<br/>e.g. docs/fix-gap-G2"]:::g
+  F2["2 Make the one change<br/>described for that gap"]:::a
+  F3["3 Run the three validators<br/>(and the verify loop if a report<br/>or model file changed)"]:::r
+  F4["4 Commit with a clear message<br/>and open a pull request"]:::ext
+  F5["5 A CODEOWNERS reviewer<br/>approves and merges"]:::ext
+  F1 --> F2 --> F3 --> F4 --> F5
