@@ -1,8 +1,8 @@
-# PGE-PBIP Masterclass Guide
+# Power BI Development with VS Code and GitHub Copilot
 
 A practical guide to the **GibbonGambits/PGE-PBIP-Template** repository, written for a new tech student who knows files, folders and basic programming but is new to VS Code, Power BI, Git/GitHub and GitHub Copilot.
 
-- **The PDF:** [`PGE-PBIP-Masterclass.pdf`](PGE-PBIP-Masterclass.pdf)
+- **The PDF:** [`PowerBI-Development-VSCode-Copilot.pdf`](PowerBI-Development-VSCode-Copilot.pdf)
 - **Diagrams:** [`images/`](images/) (PNG), with editable sources in [`images/src/`](images/src/)
 - **How the PDF is built:** [`build/`](build/)
 

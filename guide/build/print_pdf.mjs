@@ -217,7 +217,7 @@ await page.pdf({
   displayHeaderFooter: true,
   headerTemplate: '<div></div>',
   footerTemplate: `<div style="width:100%; font-family:'DejaVu Sans',Arial,sans-serif; font-size:9px; color:#475569; padding:0 16mm; display:flex; justify-content:space-between;">
-    <span>PGE-PBIP Masterclass</span><span>Page <span class="pageNumber"></span> of <span class="totalPages"></span></span></div>`,
+    <span>Power BI Development with VS Code and GitHub Copilot</span><span>Page <span class="pageNumber"></span> of <span class="totalPages"></span></span></div>`,
 });
 await browser.close();
 console.log('wrote', output);

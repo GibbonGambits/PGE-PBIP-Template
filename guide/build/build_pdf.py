@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build guide/PGE-PBIP-Masterclass.pdf from the guide's Markdown files.
+"""Build guide/PowerBI-Development-VSCode-Copilot.pdf from the guide's Markdown files.
 
 Pipeline
   1. Markdown -> HTML with pandoc.
@@ -21,8 +21,8 @@ from bs4 import BeautifulSoup
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 GUIDE = os.path.dirname(HERE)
-OUT_HTML = os.path.join(HERE, "masterclass.html")
-OUT_PDF = os.path.join(GUIDE, "PGE-PBIP-Masterclass.pdf")
+OUT_HTML = os.path.join(HERE, "guide.html")
+OUT_PDF = os.path.join(GUIDE, "PowerBI-Development-VSCode-Copilot.pdf")
 METRICS = os.path.join(HERE, "metrics.json")
 OVERRIDES = os.path.join(HERE, "fit_overrides.json")
 WORK = os.path.join(HERE, ".pages")
@@ -184,10 +184,11 @@ def chapter_title(path):
 def build_html(page_of=None):
     titles = [chapter_title(p) for p in FILES]
     out = [f"<!DOCTYPE html><html><head><meta charset='utf-8'><base href='file://{GUIDE}/'>"
-           f"<title>PGE-PBIP Masterclass</title><style>{CSS}</style></head><body>"]
+           f"<title>Power BI Development with VS Code and GitHub Copilot</title><style>{CSS}</style></head><body>"]
     out.append("""<div class="cover"><div style="font-size:12pt;letter-spacing:2px">A PRACTICAL GUIDE FOR NEW DEVELOPERS</div>
-<h1>PGE-PBIP Masterclass</h1>
-<div class="sub">How the GibbonGambits/PGE-PBIP-Template repository works, and how to build, check and share Power BI dashboards with VS Code, Git, GitHub and GitHub Copilot.</div>
+<h1>Power BI Development with VS Code and GitHub Copilot</h1>
+<div class="sub">State of Practice, Nov 10, 2026</div>
+<div class="sub" style="margin-top:4mm">By Raj Rana</div>
 <div class="meta">Facts checked against the repository and official documentation on 10 November 2026.</div></div>""")
     rows = "".join(
         f"<tr><td>{html.escape(t)}</td><td>{page_of.get(i, '') if page_of else ''}</td></tr>"
