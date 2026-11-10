@@ -1,0 +1,7 @@
+flowchart TB
+  S1["1 Read the measure's DAX<br/>in the .tmdl files"]:::a
+  S2["2 Read the page's filters<br/>in page.json and visual.json"]:::a
+  S3["3 Answer the five checks:<br/>source table, CALCULATE filters,<br/>aggregation type, context modifiers,<br/>totals granularity"]:::aa
+  S4["4 Write the pandas version<br/>scoped to the same keys and filters"]:::a
+  S5["5 Compare the Python number with<br/>the number Power BI shows"]:::r
+  S1 --> S2 --> S3 --> S4 --> S5

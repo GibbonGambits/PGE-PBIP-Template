@@ -1,0 +1,8 @@
+flowchart TB
+  P1["1 Config block<br/>read secrets from .env; set report period,<br/>thresholds and colours"]:::a
+  P2["2 Connect to the database<br/>pyodbc + ODBC driver"]:::ext
+  P3["3 Fetch the data<br/>SQL queries into pandas tables"]:::a
+  P4["4 Build Outlook-safe HTML<br/>severity badge, KPI cards, tables"]:::a
+  P5["5 Send the email<br/>SMTP (smtp.office365.com, port 587)"]:::ext
+  P6["6 main()<br/>runs 1 to 5 in order"]:::a
+  P1 --> P2 --> P3 --> P4 --> P5 --> P6

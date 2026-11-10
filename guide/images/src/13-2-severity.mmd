@@ -1,0 +1,8 @@
+flowchart TB
+  Q{"How many issues<br/>did the query find?"}:::n
+  G["0 issues<br/>ALL CLEAR (green)"]:::g
+  A["1 to 20 issues<br/>WARNING (amber)"]:::a
+  R["more than 20 issues<br/>ALERT (red)"]:::r
+  Q -- "0" --> G
+  Q -- "1-20" --> A
+  Q -- "over 20" --> R
