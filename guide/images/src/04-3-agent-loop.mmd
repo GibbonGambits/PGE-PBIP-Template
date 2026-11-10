@@ -1,0 +1,5 @@
+flowchart LR
+  R["1 Read<br/>rules, spec, existing files"]:::ai --> P["2 Plan<br/>list the changes"]:::ai --> E["3 Edit<br/>write PBIR / TMDL"]:::ai --> C["4 Check<br/>run validation scripts"]:::ai --> V["5 Verify<br/>screenshot every page"]:::ai --> H["6 Report to you<br/>findings by page name"]:::you
+  C -- "error found" --> E
+  V -- "looks wrong" --> E
+  H -- "you ask for changes" --> P

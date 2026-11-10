@@ -1,0 +1,18 @@
+<html><head><style>body{margin:0;font-family:"DejaVu Sans",Arial,sans-serif;background:#fff;color:#0F172A}
+#c{display:inline-block;padding:18px}
+.cols{display:flex;gap:28px;align-items:stretch}
+.col{flex:1;border:2px solid #94A3B8;border-radius:12px;padding:14px;background:#F8FAFC}
+.col h4{margin:0 0 12px 0;font-size:19px;text-align:center}
+.step{border:2px solid;border-radius:8px;padding:9px 12px;margin:0 0 6px 0;font-size:15px;line-height:1.35}
+.arrow{text-align:center;color:#334155;font-size:18px;margin:0 0 6px 0}
+.g{background:#DCFCE7;border-color:#15803D;color:#14532D}
+.a{background:#FEF3C7;border-color:#B45309;color:#78350F}
+.r{background:#FEE2E2;border-color:#B91C1C;color:#7F1D1D}
+.n{background:#F1F5F9;border-color:#475569}
+.bad{background:#fff;border-color:#B91C1C;border-style:dashed;color:#7F1D1D}
+.ai{outline:4px dashed #1D4ED8;outline-offset:-2px}
+.mono{font-family:"DejaVu Sans Mono",monospace;font-size:14px}
+table{border-collapse:collapse;font-size:15px}
+td,th{border:1.5px solid #94A3B8;padding:8px 10px;vertical-align:top}
+th{background:#E2E8F0}
+</style></head><body><div id='c' style='width:1100px'><div class='cols'><div class='col'><h4>Normal AI chat (e.g. a chatbot website)</h4><div class='step n'><b>1.</b> You paste in text or a question.</div><div class='arrow'>&#9660;</div><div class='step n'><b>2.</b> It answers with text or code to copy.</div><div class='arrow'>&#9660;</div><div class='step bad'><b>3.</b> It cannot see your files unless you paste them.</div><div class='arrow'>&#9660;</div><div class='step bad'><b>4.</b> <b>You</b> copy the answer, edit files, run checks.</div><div class='arrow'>&#9660;</div><div class='step bad'><b>5.</b> It forgets your house rules unless you repeat them.</div></div><div class='col'><h4>AI coding agent (Copilot agent / Claude Code)</h4><div class='step g ai'><b>1.</b> You describe the goal, e.g. &quot;build the page in specs/sales.md&quot;.</div><div class='arrow'>&#9660;</div><div class='step g ai'><b>2.</b> It <b>reads</b> the repo: rule files, spec, model, pages.</div><div class='arrow'>&#9660;</div><div class='step a ai'><b>3.</b> It <b>edits</b> files directly in your folder.</div><div class='arrow'>&#9660;</div><div class='step a ai'><b>4.</b> It <b>runs</b> commands: validation scripts, the verify loop.</div><div class='arrow'>&#9660;</div><div class='step g ai'><b>5.</b> It loads the house rules automatically every session, then reports back for <b>your</b> review.</div></div></div></div></body></html>

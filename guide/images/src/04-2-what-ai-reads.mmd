@@ -1,0 +1,14 @@
+flowchart LR
+  REQ(["Your request in chat"]):::you
+  A1["1 Always loaded every request<br/>.github/copilot-instructions.md<br/>AGENTS.md (cross-agent digest)"]:::aa
+  A2["2 Loaded when the file type matches<br/>.github/instructions/*.instructions.md<br/>(applyTo patterns: ts/js/less, yml/ps1/json, dax/md...)"]:::aa
+  A3["3 Loaded when the task matches its description<br/>.github/skills/&lt;name&gt;/SKILL.md (8 skills)"]:::aa
+  A4["4 Loaded when you pick an agent<br/>.github/agents/*.agent.md (3 expert modes)"]:::aa
+  A5["5 Read when referenced or needed<br/>copilot-instructions.md (deep reference), specs/, docs/checklists/, tests/prompts/"]:::aa
+  AG["AI agent's working context"]:::ai
+  REQ --> AG
+  A1 --> AG
+  A2 --> AG
+  A3 --> AG
+  A4 --> AG
+  A5 --> AG

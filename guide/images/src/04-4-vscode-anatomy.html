@@ -1,0 +1,35 @@
+<html><head><style>body{margin:0;font-family:"DejaVu Sans",Arial,sans-serif;background:#fff;color:#0F172A}
+#c{display:inline-block;padding:18px}
+.cols{display:flex;gap:28px;align-items:stretch}
+.col{flex:1;border:2px solid #94A3B8;border-radius:12px;padding:14px;background:#F8FAFC}
+.col h4{margin:0 0 12px 0;font-size:19px;text-align:center}
+.step{border:2px solid;border-radius:8px;padding:9px 12px;margin:0 0 6px 0;font-size:15px;line-height:1.35}
+.arrow{text-align:center;color:#334155;font-size:18px;margin:0 0 6px 0}
+.g{background:#DCFCE7;border-color:#15803D;color:#14532D}
+.a{background:#FEF3C7;border-color:#B45309;color:#78350F}
+.r{background:#FEE2E2;border-color:#B91C1C;color:#7F1D1D}
+.n{background:#F1F5F9;border-color:#475569}
+.bad{background:#fff;border-color:#B91C1C;border-style:dashed;color:#7F1D1D}
+.ai{outline:4px dashed #1D4ED8;outline-offset:-2px}
+.mono{font-family:"DejaVu Sans Mono",monospace;font-size:14px}
+table{border-collapse:collapse;font-size:15px}
+td,th{border:1.5px solid #94A3B8;padding:8px 10px;vertical-align:top}
+th{background:#E2E8F0}
+</style></head><body><div id='c' style='width:1100px'><style>
+.win{border:2px solid #475569;border-radius:10px;overflow:hidden;font-size:15px}
+.bar{background:#334155;color:#fff;padding:6px 12px}
+.grid{display:grid;grid-template-columns:54px 250px 1fr 300px;grid-template-rows:300px 150px}
+.act{grid-column:1;background:#1E293B;color:#fff;grid-row:1 / span 2;padding:8px 4px;text-align:center;font-size:13px;line-height:2.1}
+.side{grid-column:2;background:#F1F5F9;border-right:1px solid #94A3B8;padding:10px;grid-row:1 / span 2}
+.ed{grid-column:3;grid-row:1;padding:10px;background:#fff;font-family:"DejaVu Sans Mono",monospace;font-size:13px}
+.chat{grid-column:4;background:#DBEAFE;border-left:3px dashed #1D4ED8;padding:10px;grid-row:1 / span 2}
+.term{grid-column:3;grid-row:2;background:#0F172A;color:#E2E8F0;padding:10px;font-family:"DejaVu Sans Mono",monospace;font-size:13px}
+.num{display:inline-block;background:#6D28D9;color:#fff;border-radius:50%;width:24px;height:24px;text-align:center;line-height:24px;font-weight:bold;margin-right:6px;font-family:"DejaVu Sans",sans-serif}
+</style>
+<div class=win><div class=bar>VS Code &mdash; PGE-PBIP-Template</div><div class=grid>
+<div class=act><span class=num>1</span><br>Files<br>Search<br><b>Git</b><br>Ext.</div>
+<div class=side><span class=num>2</span><b>Explorer</b><br>.github/<br>docs/<br>scripts/<br>specs/<br>Template.Report/<br>Template.SemanticModel/<br>AGENTS.md<br>Template.pbip<br><br><span class=num>3</span><b>Source Control</b><br>changed files, commit box, push button</div>
+<div class=ed><span class=num>4</span><b>Editor</b><br>specs/sales-overview.md<br><br># Spec: Sales Overview<br>## 1. Goal<br>A landing page for regional sales managers...</div>
+<div class=chat><span class=num>6</span><b>Chat / Agent panel</b><br><br><i>You:</i> Build the page in specs/sales-overview.md.<br><br><i>Agent:</i> Reading .github/copilot-instructions.md... editing Template.Report/... running scripts/validate-pbip.ps1...</div>
+<div class=term><span class=num>5</span><b style="color:#fff">Terminal (PowerShell)</b><br>PS&gt; powershell -NoProfile -File scripts\validate-json.ps1<br>Validated 18 JSON-based file(s) successfully.</div>
+</div></div></div></body></html>
