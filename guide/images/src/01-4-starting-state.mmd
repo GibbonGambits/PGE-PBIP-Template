@@ -1,0 +1,14 @@
+flowchart TB
+  T["Template.pbip"]:::r
+  R["Template.Report"]:::a
+  S["Template.SemanticModel"]:::a
+  P["1 page: 'Page 1'<br/>1280 x 720 px<br/>white, no visuals"]:::a
+  TH["Themes:<br/>CY26SU02 (Microsoft)<br/>+ PGEColors (team)"]:::a
+  M["Model: no tables,<br/>no measures,<br/>no relationships"]:::a
+  C["Language en-US<br/>Compatibility 1600"]:::r
+  T --> R
+  R -- "definition.pbir<br/>points to" --> S
+  R --> P
+  R --> TH
+  S --> M
+  S --> C

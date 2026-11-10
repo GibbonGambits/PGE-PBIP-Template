@@ -1,0 +1,12 @@
+flowchart TB
+  PROJ["Power BI project files<br/>(just edited)"]:::a
+  SC["scripts/*.ps1<br/>validate + verify"]:::r
+  PBID["Power BI Desktop<br/>draws the report"]:::ext
+  SHOT["tests/screenshots/<br/>PNG of every page"]:::r
+  REV(["You review<br/>the PNGs"]):::you
+  GH["GitHub<br/>shared copy"]:::ext
+  PROJ -- "5 checked by" --> SC
+  SC -- "6 reloads via<br/>Desktop Bridge" --> PBID
+  PBID -- "7 saves" --> SHOT
+  SHOT -- "8 opened by" --> REV
+  REV -- "9 Git commit + push" --> GH

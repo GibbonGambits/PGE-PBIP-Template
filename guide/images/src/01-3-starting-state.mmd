@@ -1,8 +1,0 @@
-flowchart TB
-  T["Template.pbip"]:::r --> R["Template.Report"]:::a
-  T -.-> S["Template.SemanticModel"]:::a
-  R --> P["1 page: 'Page 1'<br/>1280 x 720 px, white, no visuals"]:::a
-  R --> TH["Themes:<br/>base CY26SU02 (Microsoft)<br/>+ custom PGEColors"]:::a
-  S --> M["Model: no tables yet,<br/>no measures, no relationships"]:::a
-  S --> C["Language: en-US<br/>Compatibility level 1600"]:::r
-  R -- "definition.pbir points to" --> S

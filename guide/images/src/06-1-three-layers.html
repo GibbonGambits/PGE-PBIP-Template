@@ -1,0 +1,27 @@
+<html><head><style>body{margin:0;font-family:"DejaVu Sans",Arial,sans-serif;background:#fff;color:#0F172A}
+#c{display:inline-block;padding:18px}
+.cols{display:flex;gap:28px;align-items:stretch}
+.col{flex:1;border:2px solid #94A3B8;border-radius:12px;padding:14px;background:#F8FAFC}
+.col h4{margin:0 0 12px 0;font-size:19px;text-align:center}
+.step{border:2px solid;border-radius:8px;padding:9px 12px;margin:0 0 6px 0;font-size:15px;line-height:1.35}
+.arrow{text-align:center;color:#334155;font-size:18px;margin:0 0 6px 0}
+.g{background:#DCFCE7;border-color:#15803D;color:#14532D}
+.a{background:#FEF3C7;border-color:#B45309;color:#78350F}
+.r{background:#FEE2E2;border-color:#B91C1C;color:#7F1D1D}
+.n{background:#F1F5F9;border-color:#475569}
+.bad{background:#fff;border-color:#B91C1C;border-style:dashed;color:#7F1D1D}
+.ai{outline:4px dashed #1D4ED8;outline-offset:-2px}
+.mono{font-family:"DejaVu Sans Mono",monospace;font-size:14px}
+table{border-collapse:collapse;font-size:15px}
+td,th{border:1.5px solid #94A3B8;padding:8px 10px;vertical-align:top}
+th{background:#E2E8F0}
+</style></head><body><div id='c' style='width:1150px'><table style="width:100%">
+<tr><th></th><th style="background:#FEF3C7">1. STEERING<br><small>the rulebook</small></th><th style="background:#DCFCE7">2. SPECS<br><small>the plan for one job</small></th><th style="background:#FEE2E2">3. HOOKS<br><small>the automatic checks</small></th></tr>
+<tr><th>Answers</th><td><b>How</b> do we always build?</td><td><b>What</b> are we building, this once?</td><td><b>When</b> does a check run?</td></tr>
+<tr><th>Lives in</th><td>.github/copilot-instructions.md, copilot-instructions.md, AGENTS.md, .github/instructions/, .github/skills/</td><td>specs/ (one file per dashboard or page)</td><td>scripts/hooks/ + scripts/Invoke-PbipVerify.ps1</td></tr>
+<tr><th>Lifetime</th><td>Permanent, versioned, maintained</td><td>Disposable: written before the build, then left alone</td><td>Permanent; code, not prose</td></tr>
+<tr><th>Loads</th><td>Every session, automatically</td><td>On demand, for one task</td><td>Run manually in this template</td></tr>
+<tr><th>Authority</th><td>Highest</td><td>Local to its task only</td><td>Deterministic: no judgement</td></tr>
+<tr><th>How it fails</th><td>Grows too long and stops being read</td><td>Gets maintained and becomes a second, conflicting rulebook</td><td>Encodes judgement and blocks work it should not</td></tr>
+<tr><th>Real-world comparison</th><td>The building code</td><td>The architect&#39;s drawing for one house</td><td>The smoke alarm</td></tr>
+</table><div style="margin-top:8px;font-size:14px;color:#334155">Source: docs/AI-CONTEXT.md (vocabulary borrowed from Kiro). Skills are procedures inside the steering layer.</div></div></body></html>

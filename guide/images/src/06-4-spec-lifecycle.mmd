@@ -1,0 +1,3 @@
+flowchart LR
+  C["1 Copy<br/>specs/TEMPLATE.md"]:::g --> F["2 Fill in<br/>goal, data, pages, rules"]:::g --> B["3 Build<br/>against the spec"]:::aa --> V["4 Verify<br/>screenshots clean"]:::r --> FB["5 Fold back<br/>durable rules to steering"]:::aa --> S["6 Let it go stale<br/>kept as a record of why"]:::g
+  FB -. "next dashboard starts<br/>from better rules" .-> C

@@ -1,0 +1,10 @@
+flowchart TB
+  P1["1 .github/copilot-instructions.md<br/>PRIMARY policy: wins any conflict in a Copilot workflow"]:::aa
+  P2["2 copilot-instructions.md (root)<br/>detailed PBIP reference: schemas, forbidden properties, templates"]:::aa
+  P3["3 AGENTS.md<br/>digest of the same guardrails for tools that read AGENTS files"]:::aa
+  P4["4 .github/skills/, .github/agents/, .github/instructions/<br/>procedures, expert modes, file-type rules"]:::aa
+  P5["5 specs/&lt;page&gt;.md<br/>decisions for one page only; never authority"]:::g
+  P1 -- "delegates detail to" --> P2
+  P2 -- "summarised in" --> P3
+  P3 -- "must not contradict" --> P4
+  P4 -- "applied within" --> P5

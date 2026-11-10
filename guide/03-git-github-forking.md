@@ -11,12 +11,12 @@ Walkthrough of Figure 3.1:
 3. **Your clone** is a full copy of your fork, downloaded to your computer with `git clone`. It includes the entire history.
 4. **A branch** is a separate line of work, e.g. `feature/sales-page`. It lets you experiment without disturbing the main line.
 5. **You or the AI agent edit files.**
-6. **A commit** saves a snapshot of your changes with a short message. You can commit many times (the loop back to step 5).
+6. **A commit** saves a snapshot of your changes with a short message. You can repeat steps 5 and 6 as often as you like.
 7. **A push** uploads your commits to your fork on GitHub.
 8. **A pull request** (PR) asks the team to review your branch and merge it. GitHub defines pull requests as "proposals to merge code changes into a project".
 9. **Review and merge.** Reviewers comment, you fix, and the branch is merged into `dev`, then `test`, then `main` (Figure 3.3).
 
-The dotted arrow is how you pick up later improvements to the template: fetch from **upstream** and merge them into your copy (commands below).
+Later improvements to the template reach you the other way: you fetch them from **upstream** and merge them into your copy (commands below).
 
 ---
 
@@ -56,7 +56,7 @@ Walkthrough of Figure 3.2:
 1. **Working folder:** the files you see in File Explorer and VS Code. Edits land here first.
 2. **Staging area:** `git add` picks which changes go into the next snapshot. Comparison: putting photos in an envelope before posting it.
 3. **Local repository:** `git commit` seals the envelope and files it in the hidden `.git` folder, with a message.
-4. **Remote:** `git push` sends your commits to GitHub; `git pull` brings other people's commits down.
+4. **Remote:** `git push` sends your commits to GitHub. The reverse, `git pull`, brings other people's commits down into your working folder.
 
 VS Code does all four with buttons in its **Source Control** view (`Ctrl+Shift+G`), so you rarely need to type these commands.
 
@@ -79,23 +79,31 @@ Walkthrough of Figure 3.3:
 
 ## Who does what when you save work
 
-![Swimlane: you, VS Code, AI agent, Git, GitHub](images/03-4-commit-swimlane.png)
+![Swimlane part 1: building the change](images/03-4-swimlane-build.png)
 
-**Figure 3.4 — Swimlane for one change.** Each vertical line is a "lane": a person or tool. Arrows show who hands what to whom, in numbered order.
+**Figure 3.4 — Swimlane, part 1: building the change.** Each column is a "lane" for one person or tool. Follow the numbered boxes from top to bottom; each arrow hands the work to the next box.
 
 Walkthrough of Figure 3.4:
 
 1. You open the repository folder in VS Code.
-2. You create a branch for your work.
+2. Git creates a branch for your work (`git checkout -b feature/x`, or the branch button in VS Code).
 3. You ask the AI agent to build what the spec describes.
 4. The agent edits the report and model files.
 5. The agent runs the checks and shows you the screenshots and a summary.
 6. You review every changed line in VS Code's Source Control view.
-7. You stage and commit with a clear message, e.g. "Add Sales Overview page".
-8. Git pushes your branch to GitHub.
-9. You open a pull request on GitHub, filling in `.github/PULL_REQUEST_TEMPLATE.md` (summary plus a three-item checklist).
+
+![Swimlane part 2: saving and sharing the change](images/03-5-swimlane-share.png)
+
+**Figure 3.5 — Swimlane, part 2: saving and sharing.** Continues from step 6.
+
+Walkthrough of Figure 3.5:
+
+7. Git stages and commits your changes with a clear message, e.g. "Add Sales Overview page".
+8. `git push` uploads your branch to GitHub.
+9. You open a pull request on GitHub, filling in `.github/PULL_REQUEST_TEMPLATE.md` (a summary plus a three-item checklist).
 10. GitHub automatically asks the owners named in `.github/CODEOWNERS` to review. GitHub's docs: owners "are automatically requested for review" when a pull request changes their files.
-11. A reviewer approves and the branch is merged.
+11. You fix any review comments (new commits on the same branch update the pull request).
+12. A reviewer approves and the branch is merged.
 
 ## Files in this repository that are about Git and GitHub
 
