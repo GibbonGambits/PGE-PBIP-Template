@@ -1,0 +1,12 @@
+flowchart TB
+  S(["I want to change HOW WE WORK"]):::you
+  Q{"What exactly?"}:::n
+  C1["A rule for every<br/>dashboard<br/>.github/copilot-instructions.md"]:::aa
+  C2["A decision for one<br/>dashboard<br/>specs/&lt;page&gt;.md"]:::g
+  C3["A repeatable<br/>procedure<br/>.github/skills/&lt;name&gt;/"]:::aa
+  C4["Automation, checks<br/>or reviewers<br/>ask a maintainer"]:::r
+  S --> Q
+  Q -- "a rule" --> C1
+  Q -- "one page" --> C2
+  Q -- "a recipe" --> C3
+  Q -- "a script" --> C4

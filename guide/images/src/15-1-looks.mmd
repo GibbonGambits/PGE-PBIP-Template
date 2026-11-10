@@ -1,0 +1,12 @@
+flowchart TB
+  S(["I want to change how the report LOOKS"]):::you
+  Q{"What exactly?"}:::n
+  A1["Colours or fonts<br/>docs/theme/Theme.json, then<br/>promote it (Section 10)"]:::a
+  A2["Add or move a chart<br/>write a spec, then the page's<br/>visuals/&lt;id&gt;/visual.json"]:::a
+  A3["Page name, size<br/>or order<br/>page.json / pages.json"]:::a
+  A4["Header band<br/>use the powerbi-dashboard-<br/>header skill"]:::aa
+  S --> Q
+  Q -- "colours" --> A1
+  Q -- "a chart" --> A2
+  Q -- "a page" --> A3
+  Q -- "the header" --> A4

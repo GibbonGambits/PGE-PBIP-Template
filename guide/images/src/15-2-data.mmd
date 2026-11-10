@@ -1,0 +1,12 @@
+flowchart TB
+  S(["I want to change the DATA or a CALCULATION"]):::you
+  Q{"What exactly?"}:::n
+  B1["A business number<br/>a measure in _Measures<br/>(tables/_Measures.tmdl)"]:::a
+  B2["A KPI picture card<br/>a P1_..._SVG measure<br/>in _SVG_Measures"]:::a
+  B3["A new table<br/>tables/&lt;Table&gt;.tmdl + a ref<br/>in model.tmdl + a spec"]:::a
+  B4["Database password<br/>for the Python guides<br/>your private .env"]:::a
+  S --> Q
+  Q -- "a measure" --> B1
+  Q -- "a KPI card" --> B2
+  Q -- "a table" --> B3
+  Q -- "a secret" --> B4
