@@ -1,0 +1,9 @@
+flowchart TB
+  A["1 You open Template.pbip"]:::r --> B["2 It names the report folder:<br/>artifacts &gt; report &gt; path = Template.Report"]:::r
+  B --> C["3 Template.Report/definition.pbir<br/>datasetReference &gt; byPath = ../Template.SemanticModel"]:::r
+  C --> D["4 Template.SemanticModel/definition.pbism<br/>+ definition/*.tmdl (the model)"]:::a
+  B --> E["5 definition/report.json<br/>themes + resource packages"]:::a
+  E --> F["6 StaticResources/...<br/>theme files on disk"]:::a
+  B --> G["7 definition/pages/pages.json<br/>pageOrder + activePageName"]:::a
+  G --> H["8 pages/&lt;page-id&gt;/page.json<br/>(later: visuals/&lt;id&gt;/visual.json)"]:::a
+  H -. "visuals ask for fields by<br/>table + column/measure name" .-> D

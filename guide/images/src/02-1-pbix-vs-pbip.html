@@ -1,0 +1,33 @@
+<html><head><style>body{margin:0;font-family:"DejaVu Sans",Arial,sans-serif;background:#fff;color:#0F172A}
+#c{display:inline-block;padding:18px}
+.cols{display:flex;gap:28px;align-items:stretch}
+.col{flex:1;border:2px solid #94A3B8;border-radius:12px;padding:14px;background:#F8FAFC}
+.col h4{margin:0 0 12px 0;font-size:19px;text-align:center}
+.step{border:2px solid;border-radius:8px;padding:9px 12px;margin:0 0 6px 0;font-size:15px;line-height:1.35}
+.arrow{text-align:center;color:#334155;font-size:18px;margin:0 0 6px 0}
+.g{background:#DCFCE7;border-color:#15803D;color:#14532D}
+.a{background:#FEF3C7;border-color:#B45309;color:#78350F}
+.r{background:#FEE2E2;border-color:#B91C1C;color:#7F1D1D}
+.n{background:#F1F5F9;border-color:#475569}
+.bad{background:#fff;border-color:#B91C1C;border-style:dashed;color:#7F1D1D}
+.ai{outline:4px dashed #1D4ED8;outline-offset:-2px}
+.mono{font-family:"DejaVu Sans Mono",monospace;font-size:14px}
+table{border-collapse:collapse;font-size:15px}
+td,th{border:1.5px solid #94A3B8;padding:8px 10px;vertical-align:top}
+th{background:#E2E8F0}
+</style></head><body><div id='c' style='width:1100px'><div class=cols>
+<div class=col><h4>Old way: one .pbix file</h4>
+<div class='step bad mono'>Sales.pbix</div>
+<div class='step n'>One compressed file (like a .zip). Report, data model and data are all sealed inside.</div>
+<div class='step bad'>Text editors and AI agents cannot read it.</div>
+<div class='step bad'>Git sees only &quot;the file changed&quot;, never <i>what</i> changed.</div>
+<div class='step bad'>Two people editing it = one person&#39;s work is lost.</div>
+</div>
+<div class=col><h4>This template: a .pbip project folder</h4>
+<div class='step r mono'>Template.pbip &nbsp;&larr; the file you open</div>
+<div class='step a mono'>Template.Report/ &nbsp;&larr; pages and visuals as JSON text</div>
+<div class='step a mono'>Template.SemanticModel/ &nbsp;&larr; tables and measures as TMDL text</div>
+<div class='step g'>Every part is a small, readable text file.</div>
+<div class='step g'>Git shows the exact line that changed; people can review and merge.</div>
+<div class='step g ai'>An AI agent can read and edit the files, following the rule files.</div>
+</div></div></div></body></html>

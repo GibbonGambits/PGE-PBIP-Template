@@ -1,0 +1,12 @@
+flowchart LR
+  DBS[("1 Data sources<br/>database, Excel, CSV")]:::ext
+  T1["2 Tables<br/>e.g. Fact-Sales, Dim-Date<br/><i>semantic model = the kitchen</i>"]:::a
+  REL["3 Relationships<br/>how tables join"]:::a
+  MEA["4 Measures (DAX)<br/>_Measures: Total Sales<br/>_SVG_Measures: P1_..._SVG"]:::a
+  VIS["5 Visuals on pages<br/>charts, tables, cards<br/><i>report = the plated meal</i>"]:::a
+  THM["6 Theme<br/>colours and fonts"]:::a
+  DBS -- "Power Query loads" --> T1
+  T1 --> REL
+  REL --> MEA
+  MEA -- "answer questions for" --> VIS
+  THM -. "styles" .-> VIS
