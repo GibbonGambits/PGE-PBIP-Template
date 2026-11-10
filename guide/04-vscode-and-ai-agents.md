@@ -20,7 +20,7 @@ VS Code's documentation puts it simply: "An agent uses a model and tools to find
 
 ## VS Code in one picture
 
-![The parts of the VS Code window](images/04-4-vscode-anatomy.png)
+![The parts of the VS Code window](images/04-2-vscode-anatomy.png)
 
 **Figure 4.2 — The VS Code window.** **VS Code** (Visual Studio Code) is Microsoft's free code editor for Windows, macOS and Linux.
 
@@ -35,7 +35,7 @@ Walkthrough of Figure 4.2:
 
 ## How the agent learns this repository's rules
 
-![Which files the AI reads and when](images/04-2-what-ai-reads.png)
+![Which files the AI reads and when](images/04-3-what-ai-reads.png)
 
 **Figure 4.3 — Five ways rule files reach the agent.** All are Amber with a blue outline: AI files that change the agent's behaviour for everyone, so edit them with care.
 
@@ -49,7 +49,7 @@ Walkthrough of Figure 4.3:
 
 ## The agent's working loop
 
-![The agent's read-plan-edit-check-verify-report loop](images/04-3-agent-loop.png)
+![The agent's read-plan-edit-check-verify-report loop](images/04-4-agent-loop.png)
 
 **Figure 4.4 — The agent's loop.** Arrows going back show where it repeats.
 

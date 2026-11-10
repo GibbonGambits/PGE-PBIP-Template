@@ -1,0 +1,15 @@
+flowchart TB
+  S0["0 ONCE PER MACHINE<br/>install tools, fork + clone, Test-PbipBridge.ps1 preflight"]:::n
+  S1["1 SESSION START<br/>hooks/pbip-session-brief.ps1 prints the guardrails + bridge status"]:::r
+  S2["2 PLAN<br/>copy specs/TEMPLATE.md, fill it in, answer open questions"]:::g
+  S3["3 BUILD<br/>agent edits model (TMDL) then report (PBIR) following the build order"]:::aa
+  S3a["3a on every write<br/>pbip-write-guard.ps1 blocks protected paths<br/>pbip-validate-hook.ps1 checks that one file"]:::r
+  S4["4 VALIDATE<br/>validate-json.ps1, validate-pbip.ps1, Test-PbipSemantics.ps1"]:::r
+  S5["5 VERIFY<br/>Invoke-PbipVerify.ps1 (or pbip-stop-hook.ps1): reload + screenshot every page"]:::r
+  S6["6 REVIEW<br/>check PNGs against powerbi-visual-verify skill; fix; one fix round"]:::you
+  S7["7 SAVE + SHARE<br/>commit, push branch, pull request into dev"]:::ext
+  S8["8 TEST STAGE<br/>merge to test: ai-testing.yml runs validators + AI test"]:::ext
+  S9["9 RELEASE + FOLD BACK<br/>merge to main; move reusable rules from the spec into the rulebook"]:::g
+  S0 --> S1 --> S2 --> S3 --> S4 --> S5 --> S6 --> S7 --> S8 --> S9
+  S3 <--> S3a
+  S6 -- "defects found" --> S3
