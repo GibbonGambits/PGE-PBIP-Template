@@ -1,8 +1,12 @@
-# PBIP Agentic BI Starter Pack
-
-[![Visitors](https://visitor-badge.laobi.icu/badge?page_id=Mofaji.Agentic-PBIP-Template&left_color=green&right_color=blue)](https://github.com/Mofaji/Agentic-PBIP-Template)
+# PGE PBIP Development Template
 
 This repository is a starter template for agentic BI dashboard development with Power BI PBIP and AI-driven markdown testing.
+
+## Start Here (Important)
+
+- **Repository guide:** [`docs/REPOSITORY-GUIDE.md`](docs/REPOSITORY-GUIDE.md)
+- **Checklist index:** [`docs/checklists/README.md`](docs/checklists/README.md)
+- **Theme workflow guide:** [`docs/theme/README.md`](docs/theme/README.md)
 
 It combines:
 - PBIP report and semantic model scaffolding
@@ -58,16 +62,31 @@ The steering digests exist because GitHub Copilot auto-loads `.github/copilot-in
 
 These are the minimum rules every contributor must follow (full detail is in `copilot-instructions.md`):
 
-1. Create all business measures in `_Measures` only.
+1. New business measures go in `_Measures`; retain existing legacy measure locations unless migration is explicitly approved.
 2. Create SVG KPI measures in `_SVG_Measures` only, with page-based naming (`P1_...`, `P2_...`).
-3. Store SVG backgrounds and custom themes in `Template.Report/StaticResources/RegisteredResources/` and reference them correctly in report metadata.
+3. Theme workflow: `docs/theme/Theme.json` source → normalize to `docs/theme/Theme.deployable.json` → copy to `Template.Report/StaticResources/RegisteredResources/` → register in `Template.Report/definition/report.json` → verify in Power BI Desktop.
 4. Follow approved PBIP schema/property constraints exactly (visual/page/report JSON shape and forbidden properties).
 5. Save all `.tmdl` files as UTF-8 without BOM and avoid inline `//` comments in TMDL.
-6. Follow repository formatting conventions for visuals (labels, axis behavior, sorting, month ordering, whole-number defaults).
+6. Use context-appropriate formatting, including justified decimals, currency, and percentages. Keep repeated metrics consistently formatted.
 7. Use image visual pattern for SVG KPI cards (`sourceType='imageData'` with direct measure reference in `sourceField`).
 8. If generating fake CSV data, use Python with NumPy and pandas (no venv required).
 9. Never call a page done on JSON validity alone — verify the rendered screenshot against `.github/skills/powerbi-visual-verify/SKILL.md`.
 10. Give every measure a `///` description in TMDL. The model is context for the next agent and for Copilot; an undocumented measure is one someone will duplicate.
+
+## One-Time Prerequisite (GitHub Copilot CLI)
+
+Run once before using Fabric Power BI authoring skills:
+
+```text
+/plugin marketplace add microsoft/skills-for-fabric
+/plugin install powerbi-authoring@fabric-collection
+```
+
+Then confirm both `powerbi-report-cli` and `semantic-model-authoring` are available:
+
+```text
+/skills list
+```
 
 ## Quick Start
 
@@ -82,13 +101,15 @@ These are the minimum rules every contributor must follow (full detail is in `co
 
 ## Agent Context Layers
 
-Three layers, deliberately separate. Full rationale in [`docs/AI-CONTEXT.md`](docs/AI-CONTEXT.md).
+Five context and execution layers, deliberately separate. Full rationale in [`docs/AI-CONTEXT.md`](docs/AI-CONTEXT.md).
 
 | Layer | Answers | Lives in | Loads |
 | --- | --- | --- | --- |
-| **Steering** | How we always build | `.github/copilot-instructions.md` (Copilot policy) + `copilot-instructions.md` (detailed reference) + `AGENTS.md` digest + `.github/skills/` procedures | Automatically, every session |
-| **Specs** | What we build this once | `specs/` — one file per dashboard or page | On demand, for one task |
-| **Hooks** | What runs regardless | `scripts/hooks/` wrappers + `scripts/Invoke-PbipVerify.ps1` | Manual run |
+| **Repository policy** | Core Copilot policy for this repository | `.github/copilot-instructions.md` | Automatically loaded |
+| **Scoped instructions** | Path/task-specific implementation constraints | `.github/instructions/*.instructions.md` | Applied by matching path or task |
+| **Skills** | Reusable task procedures and checklists | `.github/skills/*/SKILL.md` | Task-routed when relevant |
+| **Specs** | What we build this once | `specs/` — one file per dashboard or page | Loaded for the active task |
+| **Validation wrappers** | What we run to validate | `scripts/hooks/` wrappers + `scripts/Invoke-PbipVerify.ps1` | Run manually |
 
 Manual validation wrappers in this template (all fail open by design):
 
