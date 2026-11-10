@@ -1,0 +1,12 @@
+flowchart TB
+  H["8 Fork the repo on GitHub"]:::ext
+  I["9 Clone your fork<br/>and open the folder in VS Code"]:::you
+  J["10 Create your private .env<br/>(only if you use the Python guides)"]:::a
+  K["11 Open Template.pbip<br/>in Power BI Desktop"]:::r
+  L["12 Check the Desktop Bridge<br/>setting is on"]:::ext
+  M{"13 Test-PbipBridge.ps1<br/>all checks OK?"}:::r
+  N["14 Run the 3 validation scripts:<br/>you are ready"]:::g
+  O["Fix the item it names (each failed<br/>check prints a 'Fix' line), then run it again"]:::bad
+  H --> I --> J --> K --> L --> M
+  M -- "yes" --> N
+  M -- "no" --> O

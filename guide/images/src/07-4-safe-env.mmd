@@ -1,0 +1,10 @@
+flowchart TB
+  S1["1 Copy .env.example to .env<br/>(the copy stays on your PC)"]:::a
+  S2{"2 git check-ignore -v .env<br/>prints a .gitignore rule?"}:::n
+  S3["3 Open .env in VS Code and type<br/>your real values after each ="]:::a
+  S4["4 Save. Never paste .env into chat,<br/>email, screenshots or commits"]:::r
+  S5["5 git status: .env must NOT<br/>appear in the list"]:::g
+  STOP["STOP: do not type any secrets.<br/>Ask a maintainer to fix .gitignore"]:::bad
+  S1 --> S2
+  S2 -- "yes, it is ignored" --> S3 --> S4 --> S5
+  S2 -- "no output" --> STOP

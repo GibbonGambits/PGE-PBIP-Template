@@ -1,0 +1,9 @@
+flowchart TB
+  A["1 Windows 10 or 11 PC<br/>(Power BI Desktop is Windows-only)"]:::n
+  B["2 Install Git"]:::ext
+  C["3 Install VS Code"]:::ext
+  D["4 Sign in to GitHub; turn on Copilot<br/>(subscription) in VS Code"]:::ext
+  E["5 Install Power BI Desktop<br/>2.155.756.0 or later"]:::ext
+  F["6 Install Node.js (LTS)<br/>then the two Power BI CLIs with npm"]:::ext
+  G["7 Install Python 3<br/>then: pip install numpy pandas"]:::ext
+  A --> B --> C --> D --> E --> F --> G
