@@ -49,7 +49,7 @@ os.chdir(os.path.join(ROOT, "guide", "images"))
 md = ["# 14. File-by-file directory", "",
 "Every one of the repository's 176 files and folders, grouped by folder. Each group opens with a folder-tree diagram coloured with the safety legend from Section 00 (fill colour = safety; blue dashed outline = AI agent file). Under each tree, the numbered entries follow the tree from top to bottom and give:",
 "", "- the **exact path** and its **safety flag**;", "- **What it is:** a plain-English summary with a real-world comparison;", "- **Technical role:** what the file does for the tools.", "",
-"Folders that appear closed in one tree are opened in their own tree, and their entry appears there.", ""]
+"Folders that appear closed in one tree are opened in their own tree later. Each item is described once, the first time it appears.", ""]
 seen = []
 fig = 0
 for title, root, keep, collapse, intro in GROUPS:
@@ -60,7 +60,9 @@ for title, root, keep, collapse, intro in GROUPS:
         entries = order(root, keep, collapse)
         if root and root not in seen:
             entries = [root] + entries
-    entries = [e for e in entries if not (e in collapse)]
+    if root:
+        entries = [e for e in entries if not (e in collapse)]
+    entries = [e for e in entries if e not in seen]
     fig += 1
     name = f"14-{fig:02d}-tree"
     treefig.render_subset(name, root, keep, collapse=collapse, width=1000)
@@ -77,6 +79,6 @@ for title, root, keep, collapse, intro in GROUPS:
         seen.append(p)
     md.append("")
 missing = sorted(set(INV) - set(seen)); dup = sorted({x for x in seen if seen.count(x) > 1})
-md += ["---", "", f"**Coverage check:** {len(set(seen))} of {len(INV)} items listed above."]
+md += [f"**Coverage check:** {len(set(seen))} of {len(INV)} items listed above."]
 open(os.path.join(ROOT, "guide", "14-file-directory.md"), "w").write("\n".join(md) + "\n")
 print("figures", fig, "entries", len(seen), "unique", len(set(seen)), "missing", missing, "dup", dup)

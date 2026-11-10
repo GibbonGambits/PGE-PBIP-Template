@@ -6,7 +6,7 @@ Every one of the repository's 176 files and folders, grouped by folder. Each gro
 - **What it is:** a plain-English summary with a real-world comparison;
 - **Technical role:** what the file does for the tools.
 
-Folders that appear closed in one tree are opened in their own tree, and their entry appears there.
+Folders that appear closed in one tree are opened in their own tree later. Each item is described once, the first time it appears.
 
 ## 14.1 Root files
 
@@ -52,6 +52,30 @@ Walkthrough of Figure 14.1:
 
 Walkthrough of Figure 14.2:
 
+1. `.github/` — **Amber** · **AI file**
+   - *What it is:* GitHub's settings folder, which also holds all the AI agent configuration. Like the control room of the building.
+   - *Technical role:* Holds Copilot policy, scoped instructions, agent modes, skills, issue and PR templates, CODEOWNERS and the workflow.
+2. `docs/` — **Green**
+   - *What it is:* Human-readable guides and quality standards. Like the company handbook shelf.
+   - *Technical role:* Documentation folder.
+3. `python/` — **Green**
+   - *What it is:* Optional how-to guides for Python reporting and alerts. No scripts ship here.
+   - *Technical role:* Python guidance folder.
+4. `scripts/` — **Red**
+   - *What it is:* PowerShell scripts that check the files and drive Power BI Desktop. Like the inspection machines.
+   - *Technical role:* Validation, bridge verification, AI test runner and hook wrappers.
+5. `specs/` — **Green**
+   - *What it is:* One plan per dashboard or page, written before building. Like architects' drawings.
+   - *Technical role:* Specs folder.
+6. `Template.Report/` — **Amber**
+   - *What it is:* The report itself: pages, visuals and themes, as text files. Like the plated meal.
+   - *Technical role:* PBIP report folder in PBIR format.
+7. `Template.SemanticModel/` — **Amber**
+   - *What it is:* The data model: tables, relationships and measures, as text files. Like the kitchen and pantry.
+   - *Technical role:* PBIP semantic model folder in TMDL format.
+8. `tests/` — **Green**
+   - *What it is:* Test prompts and their results. Like the lab.
+   - *Technical role:* Testing folder.
 
 ## 14.3 .github: top level
 
@@ -61,31 +85,28 @@ Walkthrough of Figure 14.2:
 
 Walkthrough of Figure 14.3:
 
-1. `.github/` — **Amber** · **AI file**
-   - *What it is:* GitHub's settings folder, which also holds all the AI agent configuration. Like the control room of the building.
-   - *Technical role:* Holds Copilot policy, scoped instructions, agent modes, skills, issue and PR templates, CODEOWNERS and the workflow.
-2. `.github/ISSUE_TEMPLATE/` — **Green**
+1. `.github/ISSUE_TEMPLATE/` — **Green**
    - *What it is:* Ready-made forms for reporting problems or asking for features. Like the forms at a help desk.
    - *Technical role:* GitHub issue-template folder.
-3. `.github/ISSUE_TEMPLATE/bug_report.md` — **Green**
+2. `.github/ISSUE_TEMPLATE/bug_report.md` — **Green**
    - *What it is:* The form for reporting something broken. Like a repair request slip.
    - *Technical role:* Issue template with description, steps to reproduce, expected behaviour, context.
-4. `.github/ISSUE_TEMPLATE/feature_request.md` — **Green**
+3. `.github/ISSUE_TEMPLATE/feature_request.md` — **Green**
    - *What it is:* The form for asking for something new. Like a suggestion-box card.
    - *Technical role:* Issue template with problem, proposed solution, context.
-5. `.github/workflows/` — **Red**
+4. `.github/workflows/` — **Red**
    - *What it is:* Automation recipes GitHub runs for you. Like timers on a kitchen appliance.
    - *Technical role:* GitHub Actions workflow folder.
-6. `.github/workflows/ai-testing.yml` — **Red**
+5. `.github/workflows/ai-testing.yml` — **Red**
    - *What it is:* Runs the AI test automatically when code reaches the test branch. Like an automatic inspection at the factory gate.
    - *Technical role:* Workflow: push to test or workflow_dispatch; validate-json, validate-pbip, run-ai-md-test.ps1; artifact 30 days; optional commit back.
-7. `.github/CODEOWNERS` — **Amber**
+6. `.github/CODEOWNERS` — **Amber**
    - *What it is:* Says which team must review changes to which folders. Like a sign-off sheet naming the inspector for each room.
    - *Technical role:* GitHub CODEOWNERS file; owners are auto-requested for review. Handles such as @your-org/bi-modelers are placeholders to replace.
-8. `.github/copilot-instructions.md` — **Amber** · **AI file**
+7. `.github/copilot-instructions.md` — **Amber** · **AI file**
    - *What it is:* GitHub Copilot's main rulebook for this repository, loaded automatically every time. Like the manager's standing orders.
    - *Technical role:* Primary Copilot policy (wins conflicts); 12 guardrails, a map of where things live, checklist list, theme governance and validation commands.
-9. `.github/PULL_REQUEST_TEMPLATE.md` — **Green**
+8. `.github/PULL_REQUEST_TEMPLATE.md` — **Green**
    - *What it is:* The form every pull request starts with. Like a delivery note with tick boxes.
    - *Technical role:* Pre-fills new pull requests with a summary section and a three-item checklist (docs, tests, structure).
 
@@ -409,34 +430,31 @@ Walkthrough of Figure 14.12:
 
 Walkthrough of Figure 14.13:
 
-1. `Template.Report/` — **Amber**
-   - *What it is:* The report itself: pages, visuals and themes, as text files. Like the plated meal.
-   - *Technical role:* PBIP report folder in PBIR format.
-2. `Template.Report/definition/` — **Amber**
+1. `Template.Report/definition/` — **Amber**
    - *What it is:* The report's detailed definition files. Like the report's filing drawer.
    - *Technical role:* PBIR definition folder.
-3. `Template.Report/definition/pages/` — **Amber**
+2. `Template.Report/definition/pages/` — **Amber**
    - *What it is:* One folder per report page, plus the page order. Like pages in a binder.
    - *Technical role:* Pages folder.
-4. `Template.Report/definition/pages/6e86f24a804ae4a905eb/` — **Amber**
+3. `Template.Report/definition/pages/6e86f24a804ae4a905eb/` — **Amber**
    - *What it is:* The folder for the only page, named by a machine-made ID.
    - *Technical role:* Page folder (20-character hex id).
-5. `Template.Report/definition/pages/6e86f24a804ae4a905eb/page.json` — **Amber**
+4. `Template.Report/definition/pages/6e86f24a804ae4a905eb/page.json` — **Amber**
    - *What it is:* Describes the blank starter page: name 'Page 1', size, white surround. Like a blank canvas on an easel.
    - *Technical role:* page 2.1.0 schema: displayName Page 1, FitToPage, 1280x720, outspace #FFFFFF.
-6. `Template.Report/definition/pages/pages.json` — **Amber**
+5. `Template.Report/definition/pages/pages.json` — **Amber**
    - *What it is:* The order of pages and which one opens first. Like a table of contents.
    - *Technical role:* pagesMetadata: pageOrder [6e86f24a804ae4a905eb], activePageName.
-7. `Template.Report/definition/report.json` — **Amber**
+6. `Template.Report/definition/report.json` — **Amber**
    - *What it is:* Report-wide settings and the list of themes and resources. Like the report's master settings page.
    - *Technical role:* report 3.2.0 schema: themeCollection (CY26SU02 + PGEColors), resourcePackages, section alignment, report settings.
-8. `Template.Report/definition/version.json` — **Red**
+7. `Template.Report/definition/version.json` — **Red**
    - *What it is:* A tiny file stating the report format version. Must be exactly right. Like a format stamp.
    - *Technical role:* versionMetadata 1.0.0 schema with version 2.0.0; copilot-instructions.md gives its exact required content.
-9. `Template.Report/.platform` — **Red**
+8. `Template.Report/.platform` — **Red**
    - *What it is:* The report's ID card for Microsoft Fabric's Git sync. Like a passport number.
    - *Technical role:* Fabric platform file: type Report, displayName Template, logicalId GUID.
-10. `Template.Report/definition.pbir` — **Red**
+9. `Template.Report/definition.pbir` — **Red**
    - *What it is:* Tells the report where its data model is. Like a forwarding address.
    - *Technical role:* Report definition properties (version 4.0); datasetReference.byPath ../Template.SemanticModel.
 
@@ -475,31 +493,28 @@ Walkthrough of Figure 14.14:
 
 Walkthrough of Figure 14.15:
 
-1. `Template.SemanticModel/` — **Amber**
-   - *What it is:* The data model: tables, relationships and measures, as text files. Like the kitchen and pantry.
-   - *Technical role:* PBIP semantic model folder in TMDL format.
-2. `Template.SemanticModel/definition/` — **Amber**
+1. `Template.SemanticModel/definition/` — **Amber**
    - *What it is:* The TMDL files describing the model.
    - *Technical role:* TMDL definition folder; tables/ is added when tables exist.
-3. `Template.SemanticModel/definition/cultures/` — **Red**
+2. `Template.SemanticModel/definition/cultures/` — **Red**
    - *What it is:* Language settings folder.
    - *Technical role:* Cultures folder.
-4. `Template.SemanticModel/definition/cultures/en-US.tmdl` — **Red**
+3. `Template.SemanticModel/definition/cultures/en-US.tmdl` — **Red**
    - *What it is:* Declares English (US) as the model language. Like setting the language on a phone.
    - *Technical role:* cultureInfo en-US.
-5. `Template.SemanticModel/definition/database.tmdl` — **Red**
+4. `Template.SemanticModel/definition/database.tmdl` — **Red**
    - *What it is:* Sets the model engine's compatibility level. Like the voltage rating on an appliance.
    - *Technical role:* database compatibilityLevel 1600.
-6. `Template.SemanticModel/definition/model.tmdl` — **Amber**
+5. `Template.SemanticModel/definition/model.tmdl` — **Amber**
    - *What it is:* Model-wide settings; tables get listed here as they are added. Like the pantry's index.
    - *Technical role:* model Model: culture en-US, powerBI_V3 data source version, time-intelligence annotation 1, PBI_ProTooling DevMode, ref cultureInfo en-US.
-7. `Template.SemanticModel/.platform` — **Red**
+6. `Template.SemanticModel/.platform` — **Red**
    - *What it is:* The model's ID card for Microsoft Fabric's Git sync.
    - *Technical role:* Fabric platform file: type SemanticModel, displayName Template, logicalId GUID.
-8. `Template.SemanticModel/definition.pbism` — **Red**
+7. `Template.SemanticModel/definition.pbism` — **Red**
    - *What it is:* Says which model format version this is. Like an edition number.
    - *Technical role:* semanticModel definitionProperties 1.0.0 schema, version 4.2.
-9. `Template.SemanticModel/diagramLayout.json` — **Amber**
+8. `Template.SemanticModel/diagramLayout.json` — **Amber**
    - *What it is:* Remembers where tables sit in Power BI's model diagram. Like a seating plan. Empty for now.
    - *Technical role:* Diagram layout (All tables) with no nodes.
 
@@ -511,31 +526,28 @@ Walkthrough of Figure 14.15:
 
 Walkthrough of Figure 14.16:
 
-1. `docs/` — **Green**
-   - *What it is:* Human-readable guides and quality standards. Like the company handbook shelf.
-   - *Technical role:* Documentation folder.
-2. `docs/theme/` — **Amber**
+1. `docs/theme/` — **Amber**
    - *What it is:* The team theme's editable source and its cleaned-up copy.
    - *Technical role:* Theme source and deployable output folder.
-3. `docs/theme/README.md` — **Green**
+2. `docs/theme/README.md` — **Green**
    - *What it is:* Explains how the editable theme becomes the deployable one. Like a recipe card for the paint mix.
    - *Technical role:* Promotion rules and checklist alignment for Theme.json -> Theme.deployable.json.
-4. `docs/theme/Theme.deployable.json` — **Amber**
+3. `docs/theme/Theme.deployable.json` — **Amber**
    - *What it is:* The cleaned theme, safe to load into a report. Like paint mixed and ready to use.
    - *Technical role:* Deployable theme: maximum/minimum/null, white moved last, 10 allowed root keys.
-5. `docs/theme/Theme.json` — **Amber**
+4. `docs/theme/Theme.json` — **Amber**
    - *What it is:* The editable team colour theme (PGEColors). Like the designer's paint swatch book.
    - *Technical role:* Source theme with legacy good/bad keys and #FFFFFF first; starts with a UTF-8 BOM.
-6. `docs/AI-CONTEXT.md` — **Green**
+5. `docs/AI-CONTEXT.md` — **Green**
    - *What it is:* Explains why rules, plans and automatic checks are kept separate. Like the 'why we do it this way' chapter.
    - *Technical role:* Steering / specs / hooks model, Markdown vs JSON/TMDL/YAML, which layer a rule belongs to.
-7. `docs/CICD-SETUP.md` — **Green**
+6. `docs/CICD-SETUP.md` — **Green**
    - *What it is:* How to set up dev, test and prod branches, environments and secrets. Like instructions for setting up three rooms.
    - *Technical role:* CI/CD guide: branches, environments, Fabric secrets, workspace variables, branch protection, AI and Python test stages; refers to a cd.yml not present.
-8. `docs/REPOSITORY-GUIDE.md` — **Green**
+7. `docs/REPOSITORY-GUIDE.md` — **Green**
    - *What it is:* A map of what to reuse, what to customise and how to get template updates. Like a floor plan with 'staff only' signs.
    - *Technical role:* Repo map table, files not to edit, workflow for adding an existing PBIP, validation commands, upstream sync.
-9. `docs/STARTER-PACK-CHECKLIST.md` — **Green**
+8. `docs/STARTER-PACK-CHECKLIST.md` — **Green**
    - *What it is:* A to-do list for turning the template into a complete team platform. Like a move-in checklist.
    - *Technical role:* Checkbox lists: governance, secrets, model, report, testing, deployment, agentic enablement.
 
@@ -580,22 +592,19 @@ Walkthrough of Figure 14.17:
 
 Walkthrough of Figure 14.18:
 
-1. `python/` — **Green**
-   - *What it is:* Optional how-to guides for Python reporting and alerts. No scripts ship here.
-   - *Technical role:* Python guidance folder.
-2. `python/db_alerts/` — **Green**
+1. `python/db_alerts/` — **Green**
    - *What it is:* The alert-email guide folder.
    - *Technical role:* Folder.
-3. `python/db_alerts/ALERT_EMAIL_INSTRUCTIONS.md` — **Green**
+2. `python/db_alerts/ALERT_EMAIL_INSTRUCTIONS.md` — **Green**
    - *What it is:* A complete recipe for a database-triggered alert email. Like a template for a night-guard's report.
    - *Technical role:* pyodbc + pandas + python-dotenv; .env credentials; 6 phases; Outlook-safe HTML components; severity logic; checklist.
-4. `python/email_reporting/` — **Green**
+3. `python/email_reporting/` — **Green**
    - *What it is:* The report-email guide folder.
    - *Technical role:* Folder.
-5. `python/email_reporting/emal_style_instructions.md` — **Green**
+4. `python/email_reporting/emal_style_instructions.md` — **Green**
    - *What it is:* Rules for emails that copy a Power BI page, including how to make Python numbers match DAX. Like a translation guide.
    - *Technical role:* Three joined documents: boilerplate skill, Parts A-E (DAX-to-Python protocol, HTML, Python, charts, project ref), HTML style guide. File name has a typo ('emal').
-6. `python/README.md` — **Green**
+5. `python/README.md` — **Green**
    - *What it is:* How to write your own Python checker that compares dashboard numbers with the database. Like instructions to build your own measuring tape.
    - *Technical role:* Build-your-own validator guidance: read PBIP, find Sales-by-Branch visual, generate SQL, dry-run, outputs to tests/results/.
 
@@ -607,34 +616,31 @@ Walkthrough of Figure 14.18:
 
 Walkthrough of Figure 14.19:
 
-1. `scripts/` — **Red**
-   - *What it is:* PowerShell scripts that check the files and drive Power BI Desktop. Like the inspection machines.
-   - *Technical role:* Validation, bridge verification, AI test runner and hook wrappers.
-2. `scripts/Get-PbipLoadError.ps1` — **Red**
+1. `scripts/Get-PbipLoadError.ps1` — **Red**
    - *What it is:* Reads Power BI's error pop-ups so they can be fixed. Like someone reading a warning light's message aloud.
    - *Technical role:* UI Automation reader for 'Issues were found' and 'Your report has issues' dialogs; root-cause collapsing; Dismiss/Continue/CloseDesktop actions.
-3. `scripts/Invoke-PbipRefresh.ps1` — **Red**
+2. `scripts/Invoke-PbipRefresh.ps1` — **Red**
    - *What it is:* Clicks Power BI's Refresh button so a new project shows data. Like pressing 'play' for someone.
    - *Technical role:* UI Automation: 'Refresh now' banner or Home ribbon Refresh, because the bridge has no refresh method.
-4. `scripts/Invoke-PbipVerify.ps1` — **Red**
+3. `scripts/Invoke-PbipVerify.ps1` — **Red**
    - *What it is:* Reloads Power BI and takes a screenshot of every page. Like a camera that photographs every room after work.
    - *Technical role:* Verify engine: validate, semantic gate, find instance, reload, detect issues dialog, screenshot-all, page manifest; statuses and warnings.
-5. `scripts/PbipBridge.Common.ps1` — **Red**
+4. `scripts/PbipBridge.Common.ps1` — **Red**
    - *What it is:* Shared helper functions used by the other bridge scripts. Like a shared toolbox.
    - *Technical role:* Project discovery, Desktop version, bridge pipe, CLI calls, instance matching, reopen, load wait, definition hash, page manifest.
-6. `scripts/run-ai-md-test.ps1` — **Red**
+5. `scripts/run-ai-md-test.ps1` — **Red**
    - *What it is:* Sends the project files and a test prompt to an AI model and saves its report. Like mailing a sample to a lab.
    - *Technical role:* AI test runner: prompt + PBIP files to a chat API; skipped mode without key; writes test_results.md, history, latest_run.json.
-7. `scripts/Test-PbipBridge.ps1` — **Red**
+6. `scripts/Test-PbipBridge.ps1` — **Red**
    - *What it is:* A preflight check that everything needed for the screenshot loop is installed and open. Like a pilot's pre-flight checklist.
    - *Technical role:* Read-only: project, Desktop version >= 2.155.756.0, both CLIs, bridge pipe, matching instance, semantic and PBIR validation.
-8. `scripts/Test-PbipSemantics.ps1` — **Red**
+7. `scripts/Test-PbipSemantics.ps1` — **Red**
    - *What it is:* Finds, in the text, the errors Power BI would otherwise show as a pop-up. Like a spell-checker for the model.
    - *Technical role:* File-local and cross-file semantic checks on TMDL and PBIR; -Path for one file; -Quiet.
-9. `scripts/validate-json.ps1` — **Red**
+8. `scripts/validate-json.ps1` — **Red**
    - *What it is:* Checks that every JSON-style file can be read. Like checking every envelope is sealed.
    - *Technical role:* Parses \*.json, \*.pbip, \*.pbir, \*.pbism recursively, excluding dependency folders, package-lock.json and tsconfig.json.
-10. `scripts/validate-pbip.ps1` — **Red**
+9. `scripts/validate-pbip.ps1` — **Red**
    - *What it is:* Checks the project folders are wired together properly. Like checking every pipe connects.
    - *Technical role:* Follows .pbip -> report -> definition.pbir -> model; required files; resource items exist; custom visual GUIDs registered.
 
@@ -670,16 +676,13 @@ Walkthrough of Figure 14.20:
 
 Walkthrough of Figure 14.21:
 
-1. `specs/` — **Green**
-   - *What it is:* One plan per dashboard or page, written before building. Like architects' drawings.
-   - *Technical role:* Specs folder.
-2. `specs/EXAMPLE-sales-overview.md` — **Green**
+1. `specs/EXAMPLE-sales-overview.md` — **Green**
    - *What it is:* A filled-in example plan for a Sales Overview page. Like a sample completed form.
    - *Technical role:* Worked example (status built): tables, measures, relationships, page grid, card_y+30 placement, fold-back notes.
-3. `specs/README.md` — **Green**
+2. `specs/README.md` — **Green**
    - *What it is:* Explains what a spec is, when one is required, and the definition of done. Like the cover note on a drawing set.
    - *Technical role:* Spec purpose, when required, lifecycle, naming, difference from tests/prompts, definition of done.
-4. `specs/TEMPLATE.md` — **Green**
+3. `specs/TEMPLATE.md` — **Green**
    - *What it is:* The blank eight-part plan to copy for every new page. Like a blank order form.
    - *Technical role:* Sections: goal, data, pages, rules, build tasks, definition of done, open questions, fold-back.
 
@@ -691,22 +694,19 @@ Walkthrough of Figure 14.21:
 
 Walkthrough of Figure 14.22:
 
-1. `tests/` — **Green**
-   - *What it is:* Test prompts and their results. Like the lab.
-   - *Technical role:* Testing folder.
-2. `tests/prompts/` — **Amber** · **AI file**
+1. `tests/prompts/` — **Amber** · **AI file**
    - *What it is:* Reusable instructions you give the AI to run a test or job. Like standard lab procedures.
    - *Technical role:* Execution prompts reused unchanged.
-3. `tests/prompts/PBIP_Documentation_Page.md` — **Amber** · **AI file**
+2. `tests/prompts/PBIP_Documentation_Page.md` — **Amber** · **AI file**
    - *What it is:* The AI prompt that builds a Documentation page summarising the project. Like asking for an 'about this building' plaque.
    - *Technical role:* 7-phase prompt: inventory, SVG canvas, register resource, add page, update pages.json, markdown summary.
-4. `tests/prompts/PowerBI_Test.md` — **Amber** · **AI file**
+3. `tests/prompts/PowerBI_Test.md` — **Amber** · **AI file**
    - *What it is:* The AI audit prompt that looks for unused or broken model parts. Like a full health check request.
    - *Technical role:* 8-phase 'Measure Killer-style' + BPA audit prompt with severity markers and a fixed layout.
-5. `tests/prompts/Python_Data_Value_Test.md` — **Amber** · **AI file**
+4. `tests/prompts/Python_Data_Value_Test.md` — **Amber** · **AI file**
    - *What it is:* The AI prompt that plans (but does not write) a Python number checker. Like asking for a blueprint.
    - *Technical role:* Instruction-only blueprint for a SQL validator: Sales by Branch, --branch/--month/--year/--dry-run.
-6. `tests/README.md` — **Green**
+5. `tests/README.md` — **Green**
    - *What it is:* How to run the tests locally and on GitHub. Like the lab's instruction sheet.
    - *Technical role:* Structure, local commands, Python value testing, credentials, CI integration.
 
@@ -742,7 +742,5 @@ Walkthrough of Figure 14.23:
 8. `tests/results/test_results.md` — **Red**
    - *What it is:* The latest AI test report; today it says the test was skipped for lack of a key. Like the most recent lab report.
    - *Technical role:* Generated by run-ai-md-test.ps1 (skipped mode, 2026-04-17 12:48:10 UTC).
-
----
 
 **Coverage check:** 176 of 176 items listed above.

@@ -1,0 +1,4 @@
+masterclass.html
+tools/node_modules/
+tools/package*.json
+__pycache__/
