@@ -1,0 +1,6 @@
+flowchart TB
+  BASE["Base theme CY26SU02<br/>SharedResources/BaseThemes/<br/>(Microsoft's defaults)"]:::r
+  CUST["Custom theme PGEColors<br/>RegisteredResources/Theme.deployable.json<br/>(team colours)"]:::a
+  REP["What you see in the report<br/>Microsoft defaults + team colours"]:::ext
+  BASE -- "1 base layer" --> REP
+  CUST -- "2 custom layer" --> REP

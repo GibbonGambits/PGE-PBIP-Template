@@ -1,0 +1,9 @@
+flowchart TB
+  A["1 docs/theme/Theme.json<br/>editable source (may hold legacy good / bad)"]:::a
+  B["2 Normalise with the theme-governance skill<br/>good to maximum, bad to minimum, add null,<br/>move #FFFFFF out of first place"]:::aa
+  C["3 docs/theme/Theme.deployable.json<br/>only the 10 allowed top-level keys"]:::a
+  D["4 Copy to Template.Report/StaticResources/<br/>RegisteredResources/"]:::a
+  E["5 Register in report.json<br/>customTheme + resourcePackages item"]:::a
+  F["6 Reopen Power BI Desktop<br/>(or rename the theme: Desktop caches themes)"]:::ext
+  G["7 Screenshot and check colours, contrast,<br/>number formats (visual-verify skill)"]:::r
+  A --> B --> C --> D --> E --> F --> G
