@@ -1,0 +1,21 @@
+flowchart TB
+  YOU(["You (the beginner)"]):::you
+  VSC["VS Code<br/>(code editor)"]:::n
+  AGENT["AI coding agent<br/>GitHub Copilot or Claude"]:::ai
+  RULES["Rule files<br/>.github/copilot-instructions.md, AGENTS.md,<br/>copilot-instructions.md, skills, agents"]:::aa
+  SPEC["specs/<br/>the plan for this page"]:::g
+  PROJ["Power BI project files<br/>Template.pbip + Template.Report/<br/>+ Template.SemanticModel/"]:::a
+  SC["scripts/*.ps1<br/>validate, then verify loop"]:::r
+  PBID["Power BI Desktop<br/>(draws the report)"]:::ext
+  SHOT["tests/screenshots/<br/>PNG of every page"]:::r
+  GH["GitHub<br/>shared copy + Actions"]:::ext
+  YOU -- "1 asks for a change" --> VSC
+  VSC -- "2 passes the request" --> AGENT
+  AGENT -- "3 reads" --> RULES
+  AGENT -- "3 reads" --> SPEC
+  AGENT -- "4 edits" --> PROJ
+  PROJ -- "5 checked by" --> SC
+  SC -- "6 reloads via Desktop Bridge" --> PBID
+  PBID -- "7 screenshots" --> SHOT
+  SHOT -- "8 reviewed by" --> YOU
+  VSC -- "9 Git commit + push" --> GH
