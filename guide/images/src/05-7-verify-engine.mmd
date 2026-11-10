@@ -1,0 +1,16 @@
+flowchart TB
+  STOP["hooks/pbip-stop-hook.ps1<br/>wrapper: change detection + fix budget"]:::r
+  VER["Invoke-PbipVerify.ps1<br/>the verify engine"]:::r
+  SEMx["Test-PbipSemantics.ps1<br/>source checks"]:::r
+  COM["PbipBridge.Common.ps1<br/>shared helpers"]:::r
+  LOAD["Get-PbipLoadError.ps1<br/>reads error dialogs"]:::r
+  CLI2["powerbi-report-author<br/>validates report files"]:::ext
+  CLI1["powerbi-desktop<br/>Desktop Bridge CLI"]:::ext
+  PBD["Power BI Desktop"]:::ext
+  STOP --> VER
+  VER --> SEMx
+  VER --> COM
+  VER --> LOAD
+  COM --> CLI2
+  COM --> CLI1
+  CLI1 --> PBD

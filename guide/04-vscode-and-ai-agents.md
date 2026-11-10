@@ -51,16 +51,16 @@ Walkthrough of Figure 4.3:
 
 ![The agent's read-plan-edit-check-verify-report loop](images/04-4-agent-loop.png)
 
-**Figure 4.4 — The agent's loop.** Arrows going back show where it repeats.
+**Figure 4.4 — The agent's working cycle.** Read top to bottom. The two "no" branches end in red dashed boxes that send the agent back to step 3.
 
 Walkthrough of Figure 4.4:
 
 1. **Read** the rules, the spec and the existing files.
 2. **Plan** the list of changes.
 3. **Edit** the report (PBIR JSON) and model (TMDL) files.
-4. **Check** with validation scripts. If an error is found, go back to Edit.
-5. **Verify** by screenshotting every page in Power BI Desktop. If something looks wrong, go back to Edit.
-6. **Report** findings to you by page *display name* (e.g. "Sales Overview", not `6e86f24a804ae4a905eb`). If you want changes, the loop starts again at Plan.
+4. **Checks pass?** The validation scripts run. If not, the agent fixes the error and repeats from step 3.
+5. **Screenshots look right?** Power BI Desktop draws every page. If something looks wrong, the agent fixes the source files (never the image) and repeats from step 3.
+6. **Report** findings to you by page *display name* (e.g. "Sales Overview", not `6e86f24a804ae4a905eb`). If you want changes, the cycle starts again at step 1.
 
 ## GitHub Copilot and Claude in this repository
 

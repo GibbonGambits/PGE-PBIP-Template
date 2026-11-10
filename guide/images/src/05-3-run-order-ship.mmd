@@ -1,0 +1,11 @@
+flowchart TB
+  S4["4 VALIDATE<br/>validate-json, validate-pbip,<br/>Test-PbipSemantics"]:::r
+  S5["5 VERIFY<br/>Invoke-PbipVerify.ps1: reload +<br/>screenshot every page"]:::r
+  S6{"6 REVIEW<br/>screenshots pass the<br/>visual-verify checklist?"}:::you
+  BACK["Fix the source files and<br/>go back to step 3 (one fix round)"]:::bad
+  S7["7 SAVE + SHARE<br/>commit, push, pull request to dev"]:::ext
+  S8["8 TEST STAGE<br/>merge to test: ai-testing.yml runs"]:::ext
+  S9["9 RELEASE + FOLD BACK<br/>merge to main; move reusable<br/>rules from the spec to the rulebook"]:::g
+  S4 --> S5 --> S6
+  S6 -- "no" --> BACK
+  S6 -- "yes" --> S7 --> S8 --> S9

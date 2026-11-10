@@ -1,0 +1,7 @@
+flowchart TB
+  S0["0 ONCE PER MACHINE<br/>install tools, fork + clone,<br/>run Test-PbipBridge.ps1"]:::n
+  S1["1 SESSION START<br/>pbip-session-brief.ps1 prints<br/>the guardrails + bridge status"]:::r
+  S2["2 PLAN<br/>copy specs/TEMPLATE.md and fill it in"]:::g
+  S3["3 BUILD<br/>agent edits model (TMDL), then report (PBIR)"]:::aa
+  S3a["3a ON EVERY WRITE<br/>write guard blocks protected paths;<br/>validate hook checks that one file"]:::r
+  S0 --> S1 --> S2 --> S3 --> S3a

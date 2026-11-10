@@ -1,5 +1,14 @@
-flowchart LR
-  R["1 Read<br/>rules, spec, existing files"]:::ai --> P["2 Plan<br/>list the changes"]:::ai --> E["3 Edit<br/>write PBIR / TMDL"]:::ai --> C["4 Check<br/>run validation scripts"]:::ai --> V["5 Verify<br/>screenshot every page"]:::ai --> H["6 Report to you<br/>findings by page name"]:::you
-  C -- "error found" --> E
-  V -- "looks wrong" --> E
-  H -- "you ask for changes" --> P
+flowchart TB
+  R["1 Read<br/>rules, spec, existing files"]:::ai
+  P["2 Plan<br/>list the changes"]:::ai
+  E["3 Edit<br/>write TMDL and PBIR files"]:::ai
+  C{"4 Checks pass?<br/>validation scripts"}:::n
+  V{"5 Screenshots<br/>look right?"}:::n
+  H["6 Report to you<br/>findings by page name"]:::you
+  X1["Fix the error,<br/>then repeat from step 3"]:::bad
+  X2["Fix the source files,<br/>then repeat from step 3"]:::bad
+  R --> P --> E --> C
+  C -- "yes" --> V
+  C -- "no" --> X1
+  V -- "yes" --> H
+  V -- "no" --> X2

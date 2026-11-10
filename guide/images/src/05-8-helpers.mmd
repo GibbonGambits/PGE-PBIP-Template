@@ -1,0 +1,11 @@
+flowchart TB
+  BRIEF["hooks/pbip-session-brief.ps1"]:::r
+  PRE["Test-PbipBridge.ps1<br/>preflight"]:::r
+  VAL["hooks/pbip-validate-hook.ps1"]:::r
+  SEMx["Test-PbipSemantics.ps1"]:::r
+  COM["PbipBridge.Common.ps1<br/>shared helpers"]:::r
+  BRIEF --> COM
+  PRE --> COM
+  PRE --> SEMx
+  VAL --> SEMx
+  SEMx --> COM
