@@ -1,0 +1,12 @@
+flowchart TB
+  M0(["You need a new measure"]):::you
+  M1{"Does it return an SVG picture<br/>for a KPI card?"}:::n
+  M2{"Does a working report already keep<br/>its measures in source tables?"}:::n
+  A1["_SVG_Measures table<br/>name it P&lt;page&gt;_&lt;Name&gt;_SVG"]:::a
+  A2["Keep the legacy home table,<br/>unless you migrate every visual reference in the same change"]:::a
+  A3["_Measures table<br/>(the default)"]:::a
+  M0 --> M1
+  M1 -- "yes" --> A1
+  M1 -- "no" --> M2
+  M2 -- "yes" --> A2
+  M2 -- "no" --> A3

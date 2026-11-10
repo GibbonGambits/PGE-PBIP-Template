@@ -1,7 +1,7 @@
 flowchart TB
   S4["4 VALIDATE<br/>validate-json, validate-pbip,<br/>Test-PbipSemantics"]:::r
   S5["5 VERIFY<br/>Invoke-PbipVerify.ps1: reload +<br/>screenshot every page"]:::r
-  S6{"6 REVIEW<br/>screenshots pass the<br/>visual-verify checklist?"}:::you
+  S6{"6 REVIEW<br/>screenshots pass?"}:::you
   BACK["Fix the source files and<br/>go back to step 3 (one fix round)"]:::bad
   S7["7 SAVE + SHARE<br/>commit, push, pull request to dev"]:::ext
   S8["8 TEST STAGE<br/>merge to test: ai-testing.yml runs"]:::ext

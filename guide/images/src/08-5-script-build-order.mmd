@@ -1,0 +1,11 @@
+flowchart TB
+  B1["1 SVG backgrounds<br/>to RegisteredResources/"]:::a
+  B2["2 _SVG_Measures.tmdl<br/>to tables/"]:::a
+  B3["3 model.tmdl<br/>refs every table"]:::a
+  B4["4 visual.json files<br/>one per visual"]:::a
+  B5["5 page.json<br/>with background image"]:::a
+  B6["6 Theme JSON<br/>deployable copy only"]:::a
+  B7["7 report.json<br/>themes + resources"]:::a
+  B8["8 pages.json<br/>pageOrder"]:::a
+  B9["9 BOM check<br/>all .tmdl files"]:::r
+  B1 --> B2 --> B3 --> B4 --> B5 --> B6 --> B7 --> B8 --> B9

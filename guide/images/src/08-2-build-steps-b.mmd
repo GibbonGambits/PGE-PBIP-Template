@@ -1,0 +1,10 @@
+flowchart TB
+  S5["5 SVG KPI measures<br/>in _SVG_Measures, named P1_..._SVG"]:::a
+  S6["6 Build visuals<br/>layered on top of the SVG background"]:::a
+  S7["7 Write every file UTF-8 without BOM<br/>(use Python, not Set-Content)"]:::a
+  S8{"8 Screenshots<br/>pass review?"}:::r
+  DONE["Done: fill in the spec's<br/>definition of done and fold back"]:::g
+  FIX["Fix the source files,<br/>then repeat step 8"]:::bad
+  S5 --> S6 --> S7 --> S8
+  S8 -- "yes" --> DONE
+  S8 -- "no" --> FIX

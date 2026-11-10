@@ -1,0 +1,38 @@
+<html><head><style>body{margin:0;font-family:"DejaVu Sans",Arial,sans-serif;background:#fff;color:#0F172A}
+#c{display:inline-block;padding:18px}
+.cols{display:flex;gap:28px;align-items:stretch}
+.col{flex:1;border:2px solid #94A3B8;border-radius:12px;padding:14px;background:#F8FAFC}
+.col h4{margin:0 0 12px 0;font-size:19px;text-align:center}
+.step{border:2px solid;border-radius:8px;padding:9px 12px;margin:0 0 6px 0;font-size:15px;line-height:1.35}
+.arrow{text-align:center;color:#334155;font-size:18px;margin:0 0 6px 0}
+.g{background:#DCFCE7;border-color:#15803D;color:#14532D}
+.a{background:#FEF3C7;border-color:#B45309;color:#78350F}
+.r{background:#FEE2E2;border-color:#B91C1C;color:#7F1D1D}
+.n{background:#F1F5F9;border-color:#475569}
+.bad{background:#fff;border-color:#B91C1C;border-style:dashed;color:#7F1D1D}
+.ai{outline:4px dashed #1D4ED8;outline-offset:-2px}
+.mono{font-family:"DejaVu Sans Mono",monospace;font-size:14px}
+table{border-collapse:collapse;font-size:15px}
+td,th{border:1.5px solid #94A3B8;padding:8px 10px;vertical-align:top}
+th{background:#E2E8F0}
+</style></head><body><div id='c' style='width:1000px'><div style='display:flex;gap:20px'><div style='flex:1'><div style='text-align:center;font-weight:bold;color:#B91C1C;margin-bottom:6px;font-size:16px'>WRONG: visual y = card_y + 8</div>
+<svg width='470' height='300' xmlns='http://www.w3.org/2000/svg' font-family='DejaVu Sans'>
+<rect x='10' y='10' width='450' height='280' rx='12' fill='#F8FAFC' stroke='#94A3B8' stroke-width='2'/>
+<text x='30' y='38' font-size='13' fill='#475569'>SVG background card (drawn in the page background)</text>
+<line x1='10' y1='60' x2='460' y2='60' stroke='#CBD5E1' stroke-dasharray='4 3'/><text x='395' y='56' font-size='11' fill='#64748B'>card_y</text>
+<text x='30' y='84' font-size='17' font-weight='bold' fill='#0F172A'>TOP 10 PRODUCTS</text>
+<line x1='10' y1='84' x2='460' y2='84' stroke='#CBD5E1' stroke-dasharray='4 3'/>
+<rect x='30' y='68' width='410' height='180' rx='6' fill='#FEE2E2' fill-opacity='0.85' stroke='#B91C1C' stroke-width='2'/>
+<text x='235' y='168' text-anchor='middle' font-size='15' fill='#B91C1C'>Power BI chart visual</text>
+<text x='235' y='190' text-anchor='middle' font-size='13' fill='#B91C1C'>covers the card title</text>
+<text x='395' y='56' font-size='11' fill='#64748B'>card_y</text><text x='455' y='80' text-anchor='end' font-size='11' fill='#334155' font-weight='bold'>card_y + 24 (title)</text></svg></div><div style='flex:1'><div style='text-align:center;font-weight:bold;color:#15803D;margin-bottom:6px;font-size:16px'>RIGHT: visual y = card_y + 30</div>
+<svg width='470' height='300' xmlns='http://www.w3.org/2000/svg' font-family='DejaVu Sans'>
+<rect x='10' y='10' width='450' height='280' rx='12' fill='#F8FAFC' stroke='#94A3B8' stroke-width='2'/>
+<text x='30' y='38' font-size='13' fill='#475569'>SVG background card (drawn in the page background)</text>
+<line x1='10' y1='60' x2='460' y2='60' stroke='#CBD5E1' stroke-dasharray='4 3'/><text x='395' y='56' font-size='11' fill='#64748B'>card_y</text>
+<text x='30' y='84' font-size='17' font-weight='bold' fill='#0F172A'>TOP 10 PRODUCTS</text>
+<line x1='10' y1='84' x2='460' y2='84' stroke='#CBD5E1' stroke-dasharray='4 3'/>
+<rect x='30' y='90' width='410' height='180' rx='6' fill='#DCFCE7' fill-opacity='0.85' stroke='#15803D' stroke-width='2'/>
+<text x='235' y='190' text-anchor='middle' font-size='15' fill='#15803D'>Power BI chart visual</text>
+<text x='235' y='212' text-anchor='middle' font-size='13' fill='#15803D'>starts below the title</text>
+<text x='395' y='56' font-size='11' fill='#64748B'>card_y</text><text x='455' y='80' text-anchor='end' font-size='11' fill='#334155' font-weight='bold'>card_y + 24 (title)</text></svg></div></div><div style='font-size:14px;color:#334155;margin-top:6px'>Rule 16 in copilot-instructions.md: the title is drawn at card_y + 24, so a visual must start at card_y + 30 or lower. Example: card at y=192 means visual at y=222 or later.</div></div></body></html>

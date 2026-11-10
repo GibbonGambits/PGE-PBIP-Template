@@ -1,0 +1,8 @@
+flowchart TB
+  Q(["Q Ask first: 'Do you want a<br/>Documentation page also?'"]):::you
+  S0["0 Write a spec<br/>copy specs/TEMPLATE.md"]:::g
+  S1["1 Understand the data<br/>read the .SemanticModel folder"]:::aa
+  S2["2 Create measures with /// descriptions<br/>business measures in _Measures"]:::a
+  S3["3 Theme: deployable copy in<br/>RegisteredResources/, listed in report.json"]:::a
+  S4["4 SVG canvas background per page<br/>layout, headers, cards; no charts"]:::a
+  Q --> S0 --> S1 --> S2 --> S3 --> S4
