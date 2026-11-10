@@ -1,0 +1,26 @@
+<html><head><style>
+body{margin:0;font-family:"DejaVu Sans",Arial,sans-serif;background:#fff}
+#c{display:inline-block;padding:18px;width:1100px}
+h3{margin:4px 0 10px 0;font-size:19px;color:#0F172A}
+.row{display:flex;gap:16px;margin-bottom:18px}
+.card{flex:1;border:2px solid;border-radius:10px;padding:12px 14px;font-size:15px;line-height:1.35}
+.card b{font-size:18px;display:block;margin-bottom:4px}
+.g{background:#DCFCE7;border-color:#15803D;color:#14532D}
+.a{background:#FEF3C7;border-color:#B45309;color:#78350F}
+.r{background:#FEE2E2;border-color:#B91C1C;color:#7F1D1D}
+.ai{border:4px dashed #1D4ED8}
+i{opacity:.85}
+</style></head><body><div id="c">
+<h3>Fill colour = how safe a file is to EDIT</h3>
+<div class="row">
+<div class="card g"><b>GREEN - safe</b>Beginners can edit freely. Worst case: a wording mistake.<br><i>e.g. your own spec in specs/, README.md, checklists</i></div>
+<div class="card a"><b>AMBER - edit with care</b>Follow the rules in the rulebook, then run the checks. Mistakes can stop the report opening.<br><i>e.g. report.json, page.json, Theme.json, SKILL.md</i></div>
+<div class="card r"><b>RED - do not edit</b>Read it and run it, but leave the file itself alone. Generated, pinned, or machinery.<br><i>e.g. scripts/*.ps1, version.json, test results</i></div>
+</div>
+<h3>Blue dashed outline = AI agent file (Copilot / Claude reads it as instructions)</h3>
+<div class="row">
+<div class="card g ai"><b>Green + AI</b>An index the agent reads.<br><i>.github/skills/README.md</i></div>
+<div class="card a ai"><b>Amber + AI</b>Changes how the agent behaves for everyone.<br><i>AGENTS.md, copilot-instructions.md, SKILL.md, prompts</i></div>
+<div class="card r ai"><b>Red + AI</b>Starter-kit code the agent copies.<br><i>custom-visual kit: shared/*.ts, tools/*.py</i></div>
+</div>
+</div></body></html>
